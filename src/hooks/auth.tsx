@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useState, useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
@@ -88,14 +89,23 @@ function AuthProvider({ children }: AuthProviderProps) {
           autoClose: 3000,
         });
         if (window.location.pathname === '/login') navigate('/');
-      } catch (err: any) {
-        toast.update(id, {
-          render: `Error: ${err?.response?.data?.message}`,
-          type: 'error',
-          isLoading: false,
-          autoClose: 4000,
-          hideProgressBar: false,
-        });
+      } catch (err) {
+        if (err instanceof AxiosError)
+          toast.update(id, {
+            render: `Error: ${err?.response?.data?.message}`,
+            type: 'error',
+            isLoading: false,
+            autoClose: 4000,
+            hideProgressBar: false,
+          });
+        else
+          toast.update(id, {
+            render: `Error: ${err}`,
+            type: 'error',
+            isLoading: false,
+            autoClose: 4000,
+            hideProgressBar: false,
+          });
       }
     },
     [apiService, navigate],

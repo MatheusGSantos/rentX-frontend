@@ -15,6 +15,7 @@ export class ApiService {
   // public async createUser(user: ICreateUserDTO): Promise<void> {
   //   await this.api.post('/user', user);
   // }
+
   public async login(payload: ILoginDTO) {
     return this.api.post('/login', payload);
   }
