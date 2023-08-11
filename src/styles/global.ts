@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from './theme';
 
 export default createGlobalStyle`
   * {
@@ -9,14 +10,14 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #FCFBFF;
-    color: #000;
+    background: ${theme.colors.black.primary};
+    color: ${theme.colors.white.primary};
     -webkit-font-smoothing: antialiased;
   }
 
   body, input, button {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: ${theme.fontSizes.medium};
   }
 
   h1, h2, h3, h4, h5, h6, strong {
