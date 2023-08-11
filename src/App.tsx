@@ -1,6 +1,9 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RoutesIndexer } from './routes';
+
 import AppProvider from './hooks';
+
+import GlobalStyle from './styles/global';
 
 export function App() {
   return (
@@ -9,7 +12,7 @@ export function App() {
         <RoutesIndexer />
       </AppProvider>
 
-      {/* <CssBaseline /> */}
+      <GlobalStyle />
     </Router>
   );
 }
