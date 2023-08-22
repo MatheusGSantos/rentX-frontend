@@ -11,12 +11,14 @@ export function NotFound() {
         height: '100vh',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white',
+        gap: '1rem',
       }}
     >
-      <Text as='h1' color='whitePrimary' size='huge' weight='bold'>
+      <Text as='h1' color='blackPrimary' size='huge' weight='bold'>
         404
       </Text>
-      <Text color='whitePrimary' size='medium'>
+      <Text color='blackPrimary' size='medium'>
         Page not found
       </Text>
       <div
@@ -28,8 +30,8 @@ export function NotFound() {
           justifyContent: 'center',
         }}
       >
-        <Button buttonType='primary'>
-          <Text size='medium' weight='medium'>
+        <Button buttonType='secondary'>
+          <Text size='medium' weight='medium' family='archivo'>
             Oi
           </Text>
         </Button>

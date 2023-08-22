@@ -32,7 +32,6 @@ export const Container = styled.button<StyledButtonProps>`
         background-color: ${disabled
           ? theme.colors.redDisabled
           : lighten(0.1, theme.colors.redPrimary)};
-        /* color: ${disabled ? theme.colors.whitePrimary : theme.colors.redPrimary}; */
       }
     `;
   }}

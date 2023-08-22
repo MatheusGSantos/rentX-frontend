@@ -16,7 +16,7 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: 'Inter', sans-serif;
+    font-family: ${theme.fontFamily.inter}, sans-serif;
     font-size: ${theme.fontSizes.medium};
   }
 

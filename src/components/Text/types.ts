@@ -6,6 +6,7 @@ export type TextProps = {
   className?: string;
   as?: 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label';
   size?: keyof typeof theme.fontSizes;
+  family?: keyof typeof theme.fontFamily;
   weight?: keyof typeof theme.fontWeights;
   color?: keyof typeof theme.colors;
 };
