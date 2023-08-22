@@ -10,8 +10,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background: ${theme.colors.black.primary};
-    color: ${theme.colors.white.primary};
+    background: ${theme.colors.blackPrimary};
+    color: ${theme.colors.whitePrimary};
     -webkit-font-smoothing: antialiased;
   }
 

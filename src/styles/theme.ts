@@ -21,29 +21,23 @@ const theme = {
     bold: 700, // archivo
   },
   colors: {
-    red: {
-      primary: '#DC1637',
-      hover: '#FDEDEF',
-    },
-    green: {
-      primary: '#03B252',
-      hover: '#DAF3E5',
-    },
-    black: {
-      primary: '#1B1B1F',
-      secondary: '#29292E', // shapes
-    },
-    white: {
-      primary: '#FFFFFF',
-    },
-    gray: {
-      700: '#47474D',
-      500: '#7A7A80',
-      400: '#AEAEB3',
-      300: '#DEDEE3',
-      200: '#EBEBF0',
-      100: '#F4F5F6',
-    },
+    redPrimary: '#DC1637',
+    redDisabled: '#EE8A9B',
+
+    greenPrimary: '#03B252',
+    greenHover: '#DAF3E5',
+
+    blackPrimary: '#1B1B1F',
+    blackSecondary: '#29292E', // shapes
+
+    whitePrimary: '#FFFFFF',
+
+    gray700: '#47474D',
+    gray500: '#7A7A80',
+    gray400: '#AEAEB3',
+    gray300: '#DEDEE3',
+    gray200: '#EBEBF0',
+    gray100: '#F4F5F6',
   },
 };
 
