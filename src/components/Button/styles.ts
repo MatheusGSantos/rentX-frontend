@@ -5,14 +5,14 @@ import { StyledButtonProps } from './types';
 export const Container = styled.button<StyledButtonProps>`
   border: 0;
   padding: 1rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease-in-out;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   width: 100%;
   flex: 1;
 
-  ${({ theme, buttonType, disabled }) => {
-    if (buttonType === 'secondary') {
+  ${({ theme, buttontype, disabled }) => {
+    if (buttontype === 'secondary') {
       return css`
         background-color: ${theme.colors.blackSecondary};
         color: ${disabled ? theme.colors.gray400 : theme.colors.whitePrimary};

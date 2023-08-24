@@ -6,7 +6,7 @@ enum EButtonTypes {
 }
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  buttonType?: keyof typeof EButtonTypes;
+  buttontype?: keyof typeof EButtonTypes;
 };
 
 export type StyledButtonProps = Omit<ButtonProps, 'children'>;
