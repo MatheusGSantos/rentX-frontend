@@ -5,6 +5,7 @@ import { FormTextInput } from '../../components/FormTextInput';
 import { Text } from '../../components/Text';
 import { ReactComponent as MailIcon } from '../../assets/envelope.svg';
 import { ReactComponent as EyeIcon } from '../../assets/eye.svg';
+import { Checkbox } from '../../components/Checkbox';
 
 type FormDataTypes = {
   myInput: string;
@@ -94,6 +95,8 @@ export function NotFound() {
             </Text>
           </Button>
         </div>
+
+        <Checkbox />
       </main>
     </FormProvider>
   );

@@ -1,4 +1,4 @@
-import { FunctionComponent, InputHTMLAttributes, ReactNode, SVGProps } from 'react';
+import { FunctionComponent, InputHTMLAttributes, SVGProps } from 'react';
 
 export interface FormTextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
