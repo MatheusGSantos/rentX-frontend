@@ -1,5 +1,4 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
 import { FormTextInputProps } from './types';
 import {
   StyledFormTextInputContainer,

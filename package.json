@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@hookform/error-message": "^2.0.1",
+    "@radix-ui/react-checkbox": "^1.0.4",
     "@types/node": "^20.4.9",
     "axios": "^1.4.0",
     "polished": "^4.2.2",
