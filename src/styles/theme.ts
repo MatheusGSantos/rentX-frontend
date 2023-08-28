@@ -12,7 +12,8 @@ const theme = {
     xlarge: '20px',
     xxlarge: '24px',
     xxxlarge: '32px',
-    huge: '48px',
+    huge: '40px',
+    maximum: '48px',
   },
   fontWeights: {
     regular: 400, // inter

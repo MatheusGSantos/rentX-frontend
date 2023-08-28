@@ -9,6 +9,7 @@ export type TextProps = {
   family?: keyof typeof theme.fontFamily;
   weight?: keyof typeof theme.fontWeights;
   color?: keyof typeof theme.colors;
+  lineHeight?: number;
 };
 
 export type StyledTextProps = Omit<TextProps, 'children' | 'as'>;
