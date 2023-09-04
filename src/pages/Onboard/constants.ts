@@ -7,8 +7,6 @@ export const TEXT = {
     TITLE: 'Depois, escolha o carro',
     SUBTITLE: 'Vários modelos para você dirigir seguro, com conforto e segurança.',
   },
-  STEP3: {
-    TITLE: 'Seja Bem-vindo',
-    SUBTITLE: 'O que você deseja fazer?',
-  },
 };
+
+export const MAX_STEPS = 2;

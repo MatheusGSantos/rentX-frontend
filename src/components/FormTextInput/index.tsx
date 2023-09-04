@@ -1,4 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form';
+import { Text } from '@components/Text';
 import { FormTextInputProps } from './types';
 import {
   StyledFormTextInputContainer,
@@ -8,7 +9,6 @@ import {
   StyledFormTextInputRightIcon,
   StyledFormTextInputRoot,
 } from './styles';
-import { Text } from '../Text';
 
 export function FormTextInput({
   labelIcon: LabelIcon,

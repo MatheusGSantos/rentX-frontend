@@ -22,7 +22,7 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    .calendar-icon {
+    .car-icon {
       height: 80px;
       width: 80px;
 

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import theme from '../../styles/theme';
+import theme from '@styles/theme';
 
 export type TextProps = {
   children: string | ReactNode;

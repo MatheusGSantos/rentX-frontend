@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
+import { NotFound } from '@pages/NotFound';
+import { Onboard } from '@pages/Onboard';
 import RedirectHandler from './RedirectHandler';
-import { NotFound } from '../pages/NotFound';
-import { Onboard } from '../pages/Onboard';
 // import { Home } from '../pages/Home';
 // import LogIn from '../pages/LogIn';
 

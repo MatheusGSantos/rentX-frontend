@@ -2,13 +2,15 @@ import React, { createContext, useCallback, useState, useContext, useMemo } from
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
+
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
   setLocalStorageItem,
-} from '../utils/localStorageUtils';
-import { ApiService } from '../services/ApiService';
-import api from '../services/api';
+} from '@utils/localStorageUtils';
+
+import { ApiService } from '@services/ApiService';
+import api from '@services/api';
 
 interface User {
   id: string;

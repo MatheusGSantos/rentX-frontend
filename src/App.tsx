@@ -1,12 +1,12 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Slide, ToastContainer } from 'react-toastify';
-import { RoutesIndexer } from './routes';
+import { RoutesIndexer } from 'routes';
 
-import AppProvider from './hooks';
+import AppProvider from 'hooks';
 
-import GlobalStyle from './styles/global';
-import theme from './styles/theme';
+import GlobalStyle from '@styles/global';
+import theme from '@styles/theme';
 
 export function App() {
   return (

@@ -1,11 +1,11 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { Button } from '../../components/Button';
-import { FormTextInput } from '../../components/FormTextInput';
-import { Text } from '../../components/Text';
-import { ReactComponent as MailIcon } from '../../assets/envelope.svg';
-import { ReactComponent as EyeIcon } from '../../assets/eye.svg';
-import { Checkbox } from '../../components/Checkbox';
+import { Button } from '@components/Button';
+import { FormTextInput } from '@components/FormTextInput';
+import { Text } from '@components/Text';
+import { ReactComponent as MailIcon } from '@assets/envelope.svg';
+import { ReactComponent as EyeIcon } from '@assets/eye.svg';
+import { Checkbox } from '@components/Checkbox';
 
 type FormDataTypes = {
   myInput: string;
