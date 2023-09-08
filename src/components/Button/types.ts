@@ -1,12 +1,13 @@
 import { ButtonHTMLAttributes } from 'react';
 
-enum EButtonTypes {
+enum EButtonVariants {
   'primary',
   'secondary',
+  'ghost',
 }
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  buttontype?: keyof typeof EButtonTypes;
+  variant?: keyof typeof EButtonVariants;
 };
 
 export type StyledButtonProps = Omit<ButtonProps, 'children'>;
