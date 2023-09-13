@@ -13,7 +13,6 @@ export default createGlobalStyle`
     background: ${theme.colors.blackPrimary};
     color: ${theme.colors.whitePrimary};
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
   }
 
   body, input, button {

@@ -4,23 +4,41 @@ import { FormTextInput } from '@components/FormTextInput';
 import { ReactComponent as EmailIcon } from '@assets/envelope.svg';
 import { ReactComponent as UserIcon } from '@assets/user.svg';
 import { ReactComponent as LockIcon } from '@assets/lock.svg';
+import { ReactComponent as CarIcon } from '@assets/car.svg';
+import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '@components/Button';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Content, StyledForm } from './styles';
 
 type FormData = {
   name: string;
   email: string;
+  driverLicense: string;
   password: string;
+  repeatPassword: string;
 };
 
 export function Signin() {
-  const methods = useForm<FormData>({ defaultValues: { name: '', email: '', password: '' } });
+  const methods = useForm<FormData>({
+    defaultValues: { name: '', email: '', driverLicense: '', password: '', repeatPassword: '' },
+  });
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  function goBack() {
+    if (state?.from) {
+      navigate(-1);
+    } else {
+      navigate('/welcome');
+    }
+  }
 
   return (
     <Container>
       <Content>
+        <LeftArrow className='back-arrow' onClick={goBack} />
         <div className='presentation'>
           <Text
             id='presentation-title'
@@ -34,7 +52,7 @@ export function Signin() {
           </Text>
           <Text
             id='presentation-paragraph'
-            size='small'
+            size='medium'
             weight='regular'
             color='gray500'
             lineHeight={24}
@@ -65,6 +83,15 @@ export function Signin() {
               />
 
               <FormTextInput
+                id='driverLicense'
+                name='driverLicense'
+                labelIcon={CarIcon}
+                placeholder='Número da CNH'
+                autoComplete='new-password'
+                required
+              />
+
+              <FormTextInput
                 type='password'
                 id='password'
                 name='password'
@@ -76,62 +103,12 @@ export function Signin() {
 
               <FormTextInput
                 type='password'
-                id='password'
-                name='password'
+                id='repeatPassword'
+                name='repeatPassword'
                 labelIcon={LockIcon}
                 placeholder='Repetir senha'
                 autoComplete='new-password'
                 required
-              />
-              <FormTextInput
-                type='password'
-                id='password'
-                name='password'
-                labelIcon={LockIcon}
-                placeholder='Repetir senha'
-                autoComplete='new-password'
-                required
-                wrapperClassName='extra'
-              />
-              <FormTextInput
-                type='password'
-                id='password'
-                name='password'
-                labelIcon={LockIcon}
-                placeholder='Repetir senha'
-                autoComplete='new-password'
-                required
-                wrapperClassName='extra'
-              />
-              <FormTextInput
-                type='password'
-                id='password'
-                name='password'
-                labelIcon={LockIcon}
-                placeholder='Repetir senha'
-                autoComplete='new-password'
-                required
-                wrapperClassName='extra'
-              />
-              <FormTextInput
-                type='password'
-                id='password'
-                name='password'
-                labelIcon={LockIcon}
-                placeholder='Repetir senha'
-                autoComplete='new-password'
-                required
-                wrapperClassName='extra'
-              />
-              <FormTextInput
-                type='password'
-                id='password'
-                name='password'
-                labelIcon={LockIcon}
-                placeholder='Repetir senha'
-                autoComplete='new-password'
-                required
-                wrapperClassName='extra'
               />
             </div>
             <Button type='submit'>Cadastrar</Button>
