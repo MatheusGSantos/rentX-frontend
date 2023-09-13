@@ -14,6 +14,7 @@ export function FormTextInput({
   labelIcon: LabelIcon,
   rightIcon: RightIcon,
   onRightIconClick,
+  wrapperClassName,
   name,
   ...rest
 }: FormTextInputProps) {
@@ -23,7 +24,7 @@ export function FormTextInput({
   } = useFormContext();
 
   return (
-    <StyledFormTextInputContainer>
+    <StyledFormTextInputContainer className={wrapperClassName}>
       <StyledFormTextInputRoot>
         <StyledFormTextInputLabelIcon hasError={!!errors[name]}>
           <LabelIcon />

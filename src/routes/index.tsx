@@ -2,9 +2,9 @@ import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '@pages/NotFound';
 import { Onboard } from '@pages/Onboard';
 import { Welcome } from '@pages/Welcome';
+import { Signin } from '@pages/Signin';
+
 import RedirectHandler from './RedirectHandler';
-// import { Home } from '../pages/Home';
-// import LogIn from '../pages/LogIn';
 
 export function RoutesIndexer() {
   return (
@@ -22,6 +22,14 @@ export function RoutesIndexer() {
         element={
           <RedirectHandler handlerType='logged'>
             <Welcome />
+          </RedirectHandler>
+        }
+      />
+      <Route
+        path='/signin'
+        element={
+          <RedirectHandler handlerType='logged'>
+            <Signin />
           </RedirectHandler>
         }
       />

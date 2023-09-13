@@ -10,6 +10,9 @@ export type TextProps = {
   weight?: keyof typeof theme.fontWeights;
   color?: keyof typeof theme.colors;
   lineHeight?: number;
+  id?: string;
+  htmlFor?: string;
+  onClick?: () => void;
 };
 
 export type StyledTextProps = Omit<TextProps, 'children' | 'as'>;

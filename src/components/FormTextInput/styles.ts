@@ -32,6 +32,7 @@ export const StyledFormTextInputLabelIcon = styled.div<{ hasError: boolean }>`
 
 export const StyledFormTextInputInputWrapper = styled.div<{ hasError: boolean }>`
   flex: 1;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +40,7 @@ export const StyledFormTextInputInputWrapper = styled.div<{ hasError: boolean }>
   border: 1px solid
     ${({ theme, hasError }) => (hasError ? theme.colors.redPrimary : theme.colors.gray200)};
   background-color: ${({ theme }) => theme.colors.gray200};
-  padding: 15px;
+  padding: 16px;
   gap: 4px;
 `;
 
@@ -54,6 +55,7 @@ export const StyledFormTextInputInput = styled.input<InputHTMLAttributes<HTMLInp
   font-family: ${({ theme }) => theme.fontFamily.inter};
 
   &::placeholder {
+    font-size: ${({ theme }) => theme.fontSizes.small};
     color: ${({ theme }) => theme.colors.gray400};
     font-weight: ${({ theme }) => theme.fontWeights.regular};
   }

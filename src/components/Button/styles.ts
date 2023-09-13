@@ -6,7 +6,7 @@ export const Container = styled.button<StyledButtonProps>`
   border: 0;
   padding: 1rem;
   transition: background-color 0.2s ease-in-out;
-  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  font-weight: ${({ theme }) => theme.fontWeights.medium};
   font-size: ${({ theme }) => theme.fontSizes.medium};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   width: 100%;
