@@ -31,4 +31,27 @@ export default createGlobalStyle`
   #root {
     height: 100%;
   }
+
+  .RX-scroll {
+    /* width */
+    &::-webkit-scrollbar {
+      width: 0.375rem;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 8px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
 `;

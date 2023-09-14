@@ -12,6 +12,7 @@ export type TextProps = {
   lineHeight?: number;
   id?: string;
   htmlFor?: string;
+  for?: string;
   onClick?: () => void;
 };
 

@@ -17,7 +17,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 64px;
+  gap: 120px;
   min-height: 100vh;
   width: 100%;
   overflow-y: visible;
@@ -34,7 +34,7 @@ export const Content = styled.div`
 
     #presentation-title,
     #presentation-paragraph {
-      max-width: 270px;
+      max-width: 250px;
     }
   }
 
@@ -56,7 +56,16 @@ export const StyledForm = styled.form`
     flex-direction: column;
     gap: 16px;
   }
-  button {
+
+  .checkbox-container {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .login-button {
     margin-top: 32px;
   }
 `;

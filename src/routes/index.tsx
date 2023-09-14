@@ -3,6 +3,7 @@ import { NotFound } from '@pages/NotFound';
 import { Onboard } from '@pages/Onboard';
 import { Welcome } from '@pages/Welcome';
 import { Signin } from '@pages/Signin';
+import { Login } from '@pages/Login';
 
 import RedirectHandler from './RedirectHandler';
 
@@ -30,6 +31,14 @@ export function RoutesIndexer() {
         element={
           <RedirectHandler handlerType='logged'>
             <Signin />
+          </RedirectHandler>
+        }
+      />
+      <Route
+        path='/login'
+        element={
+          <RedirectHandler handlerType='logged'>
+            <Login />
           </RedirectHandler>
         }
       />
