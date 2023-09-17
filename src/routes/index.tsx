@@ -5,44 +5,47 @@ import { Welcome } from '@pages/Welcome';
 import { Signin } from '@pages/Signin';
 import { Login } from '@pages/Login';
 
+import { Wrapper } from '@pages/Wrapper';
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
   return (
     <Routes>
-      <Route
-        path='/onboard'
-        element={
-          <RedirectHandler handlerType='logged'>
-            <Onboard />
-          </RedirectHandler>
-        }
-      />
-      <Route
-        path='/welcome'
-        element={
-          <RedirectHandler handlerType='logged'>
-            <Welcome />
-          </RedirectHandler>
-        }
-      />
-      <Route
-        path='/signin'
-        element={
-          <RedirectHandler handlerType='logged'>
-            <Signin />
-          </RedirectHandler>
-        }
-      />
-      <Route
-        path='/login'
-        element={
-          <RedirectHandler handlerType='logged'>
-            <Login />
-          </RedirectHandler>
-        }
-      />
-      <Route path='*' element={<NotFound />} />
+      <Route path='/' element={<Wrapper />}>
+        <Route
+          path='/onboard'
+          element={
+            <RedirectHandler handlerType='logged'>
+              <Onboard />
+            </RedirectHandler>
+          }
+        />
+        <Route
+          path='/welcome'
+          element={
+            <RedirectHandler handlerType='logged'>
+              <Welcome />
+            </RedirectHandler>
+          }
+        />
+        <Route
+          path='/signin'
+          element={
+            <RedirectHandler handlerType='logged'>
+              <Signin />
+            </RedirectHandler>
+          }
+        />
+        <Route
+          path='/login'
+          element={
+            <RedirectHandler handlerType='logged'>
+              <Login />
+            </RedirectHandler>
+          }
+        />
+        <Route path='*' element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }

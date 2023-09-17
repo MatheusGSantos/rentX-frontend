@@ -67,7 +67,6 @@ export function Login() {
                 labelIcon={EmailIcon}
                 placeholder='E-mail'
                 autoComplete='username'
-                required
               />
 
               <FormTextInput
@@ -77,7 +76,6 @@ export function Login() {
                 labelIcon={LockIcon}
                 placeholder='Senha'
                 autoComplete='new-password'
-                required
               />
             </div>
             <div className='checkbox-container'>
