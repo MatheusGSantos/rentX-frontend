@@ -42,6 +42,7 @@ export const Content = styled.div`
     position: absolute;
     top: 20px;
     left: 8px;
+    cursor: pointer;
   }
 `;
 

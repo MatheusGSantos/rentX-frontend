@@ -73,18 +73,21 @@ export function Signin() {
     const id = toast.loading('Aguarde...');
     try {
       await api.createUser(data);
-      toast.update(id, {
-        render: 'Usuário criado com sucesso!',
-        type: 'success',
-        isLoading: false,
-        autoClose: 2000,
-        closeButton: true,
+      toast.dismiss(id);
+      navigate('/success', {
+        state: {
+          title: 'Conta criada!',
+          paragraph: 'Agora é só fazer login\ne aproveitar.',
+          navigateTo: '/login',
+        },
       });
     } catch (error) {
       const message =
         error instanceof AxiosError
           ? error?.response?.data?.message
           : 'Erro inesperado ao criar usuário';
+
+      console.error(error);
 
       toast.update(id, {
         render: message,
