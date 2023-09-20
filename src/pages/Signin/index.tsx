@@ -87,8 +87,6 @@ export function Signin() {
           ? error?.response?.data?.message
           : 'Erro inesperado ao criar usuário';
 
-      console.error(error);
-
       toast.update(id, {
         render: message,
         type: 'error',

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,10 +19,27 @@ export const Content = styled.div`
   max-width: 1366px;
 
   .logo {
+    margin-bottom: 60px;
   }
-  .done {
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+
+    .done {
+      margin-bottom: 24px;
+    }
+
+    p {
+      max-width: 155px;
+    }
   }
   .button {
+    margin-top: 80px;
     width: 80px;
   }
 `;
