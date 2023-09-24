@@ -7,6 +7,7 @@ import { Login } from '@pages/Login';
 
 import { Wrapper } from '@pages/Wrapper';
 import { SuccessPage } from '@pages/SuccessPage';
+import { Edit } from '@pages/Profile';
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
@@ -46,6 +47,14 @@ export function RoutesIndexer() {
           }
         />
         <Route path='/success' element={<SuccessPage />} />
+        <Route
+          path='profile/edit'
+          element={
+            // <RedirectHandler handlerType='security'>
+            <Edit />
+            // </RedirectHandler>
+          }
+        />
         <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>

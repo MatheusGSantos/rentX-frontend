@@ -11,7 +11,6 @@ export function Wrapper() {
         autoClose={4000}
         hideProgressBar={false}
         limit={3}
-        newestOnTop
         closeOnClick
         rtl={false}
         pauseOnFocusLoss

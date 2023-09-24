@@ -12,4 +12,9 @@ export class ApiService {
   public async login(payload: ILoginDTO) {
     return this.api.post('/login', payload);
   }
+
+  public async getUserProfile() {
+    const { data } = await this.api.get('/users/profile');
+    return { name: data.name as string, email: data.email as string };
+  }
 }

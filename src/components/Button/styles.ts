@@ -10,7 +10,6 @@ export const Container = styled.button<StyledButtonProps>`
   font-size: ${({ theme }) => theme.fontSizes.medium};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   width: 100%;
-  flex: 1;
 
   ${({ theme, variant, disabled }) => {
     if (variant === 'secondary') {
