@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useState, useContext, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { To, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import {
@@ -11,12 +10,13 @@ import {
 
 import { ApiService } from '@services/ApiService';
 import api from '@services/api';
+import { useRentxToast } from './useToast';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  avatarUrl: string;
+  driverLicense: string;
 }
 
 interface AuthState {
@@ -35,6 +35,7 @@ interface AuthContextData {
     credentials: SignInCredentials,
     rememberMe: boolean,
     setLoading?: (state: boolean) => void,
+    redirectTo?: To,
   ): Promise<void>;
   signOut(): void;
   updateUser(user: User): void;
@@ -62,6 +63,8 @@ function AuthProvider({ children }: AuthProviderProps) {
     return {} as AuthState;
   });
 
+  const { createLoadingToast, updateToast } = useRentxToast();
+
   const signOut = useCallback(() => {
     removeLocalStorageItem('token');
     removeLocalStorageItem('user');
@@ -74,9 +77,10 @@ function AuthProvider({ children }: AuthProviderProps) {
       { email, password }: SignInCredentials,
       rememberMe: boolean,
       setLoading?: (state: boolean) => void,
+      redirectTo?: To,
     ) => {
       if (setLoading) setLoading(true);
-      const id = toast.loading('Submitting...');
+      const id = createLoadingToast('Aguarde...');
       try {
         const response = await apiService.login({
           email,
@@ -93,16 +97,16 @@ function AuthProvider({ children }: AuthProviderProps) {
         api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
         setData({ token, user });
-        toast.update(id, {
+        updateToast(id, {
           render: 'Logged in successfully!',
           type: 'success',
           isLoading: false,
           autoClose: 3000,
         });
-        if (window.location.pathname === '/login') navigate('/');
+        if (window.location.pathname === '/login') navigate(redirectTo ?? '/');
       } catch (err) {
         if (err instanceof AxiosError)
-          toast.update(id, {
+          updateToast(id, {
             render: `Error: ${err?.response?.data?.message}`,
             type: 'error',
             isLoading: false,
@@ -110,7 +114,7 @@ function AuthProvider({ children }: AuthProviderProps) {
             hideProgressBar: false,
           });
         else
-          toast.update(id, {
+          updateToast(id, {
             render: `Error: ${err}`,
             type: 'error',
             isLoading: false,
@@ -121,7 +125,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         if (setLoading) setLoading(false);
       }
     },
-    [apiService, navigate],
+    [apiService, createLoadingToast, navigate, updateToast],
   );
 
   const updateUser = useCallback(

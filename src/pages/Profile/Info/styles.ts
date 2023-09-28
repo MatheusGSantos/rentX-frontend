@@ -67,16 +67,7 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.gray300};
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex: 1;
-    gap: 16px;
-  }
-
-  .form-loading {
+  .info-loading {
     flex: 1;
     display: flex;
     padding-top: 100px;

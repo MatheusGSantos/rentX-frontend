@@ -29,22 +29,14 @@ export function Login() {
   const { login } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  function goBack() {
-    if (state?.from) {
-      navigate(-1);
-    } else {
-      navigate('/welcome');
-    }
-  }
-
   const onSubmit = async ({ rememberMe, ...rest }: FormData) => {
-    await login({ ...rest }, rememberMe, setIsSubmitting);
+    await login({ ...rest }, rememberMe, setIsSubmitting, state?.goBack);
   };
 
   return (
     <Container className='RX-scroll'>
       <Content>
-        <LeftArrow className='back-arrow' onClick={goBack} />
+        <LeftArrow className='back-arrow' onClick={() => navigate(state?.goBack ?? '/welcome')} />
         <div className='presentation'>
           <Text
             id='presentation-title'

@@ -17,7 +17,7 @@ export function Wrapper() {
         draggable
         pauseOnHover
         transition={Slide}
-        style={{ marginTop: '1rem' }}
+        style={{ marginTop: '2.5rem' }}
       />
     </>
   );

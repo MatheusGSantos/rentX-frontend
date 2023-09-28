@@ -15,9 +15,9 @@ import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
 
 import { ERROR_MESSAGES } from '@utils/constants';
 import { ApiService } from '@services/ApiService';
-import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
+import { useRentxToast } from '@hooks/useToast';
 import { Container, Content, StyledForm } from './styles';
 import { TEXT } from './constants';
 
@@ -59,6 +59,7 @@ export function Signin() {
   const { state } = useLocation();
   const api = new ApiService();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { createLoadingToast, dismissToast, updateToast } = useRentxToast();
 
   function goBack() {
     if (state?.from) {
@@ -70,10 +71,10 @@ export function Signin() {
 
   async function onSubmit(data: z.infer<typeof signinFormSchema>) {
     setIsSubmitting(true);
-    const id = toast.loading('Aguarde...');
+    const id = createLoadingToast('Aguarde...');
     try {
       await api.createUser(data);
-      toast.dismiss(id);
+      dismissToast(id);
       navigate('/success', {
         state: {
           title: 'Conta criada!',
@@ -87,12 +88,11 @@ export function Signin() {
           ? error?.response?.data?.message
           : 'Erro inesperado ao criar usuário';
 
-      toast.update(id, {
+      updateToast(id, {
         render: message,
         type: 'error',
         isLoading: false,
         autoClose: 2000,
-        closeButton: true,
       });
     } finally {
       setIsSubmitting(false);

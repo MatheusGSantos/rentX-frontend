@@ -21,7 +21,7 @@ import { ERROR_MESSAGES } from '@utils/constants';
 import { ApiService } from '@services/ApiService';
 import { AxiosError } from 'axios';
 
-import { toast } from 'react-toastify';
+import { useRentxToast } from '@hooks/useToast';
 import { Container, Content } from './styles';
 
 const editProfileFormSchema = z.object({
@@ -49,6 +49,7 @@ function Edit() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const api = useMemo(() => new ApiService(), []);
+  const { createBasicToast, createLoadingToast, dismissToast, updateToast } = useRentxToast();
 
   const methods = useForm({
     resolver: zodResolver(editProfileFormSchema),
@@ -66,9 +67,9 @@ function Edit() {
       methods.reset(user);
       setDataLoading(false);
     } catch (error) {
-      toast.error('Algo deu errado. Tente novamente mais tarde.');
+      createBasicToast('error', 'Algo deu errado. Tente novamente mais tarde.');
     }
-  }, [api, methods]);
+  }, [api, createBasicToast, methods]);
 
   useEffect(() => {
     if (dataLoading) getUserData();
@@ -76,10 +77,10 @@ function Edit() {
 
   async function onSubmit(data: z.infer<typeof editProfileFormSchema>) {
     setIsSubmitting(true);
-    const id = toast.loading('Aguarde...');
+    const id = createLoadingToast('Aguarde...');
     try {
       await api.updateUser(data);
-      toast.dismiss(id);
+      dismissToast(id);
       navigate('/success', {
         state: {
           title: 'Feito!',
@@ -93,12 +94,11 @@ function Edit() {
           ? error?.response?.data?.message
           : 'Erro inesperado ao criar usuário';
 
-      toast.update(id, {
+      updateToast(id, {
         render: message,
         type: 'error',
         isLoading: false,
         autoClose: 2000,
-        closeButton: true,
       });
     } finally {
       setIsSubmitting(false);
@@ -115,7 +115,7 @@ function Edit() {
       </header>
       <Content>
         <div className='image-container'>
-          <UserAvatar aria-label='profile-picture' />
+          {dataLoading ? <Loader /> : <UserAvatar aria-label='profile-picture' />}
         </div>
         <Text as='h1' color='gray700' family='archivo' weight='semibold' size='xxlarge'>
           Dados Pessoais
