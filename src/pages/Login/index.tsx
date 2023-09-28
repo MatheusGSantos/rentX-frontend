@@ -6,23 +6,28 @@ import { ReactComponent as LockIcon } from '@assets/lock.svg';
 import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
 
 import { FormProvider, useForm } from 'react-hook-form';
+import { useAuth } from '@hooks/auth';
 import { Button } from '@components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Checkbox } from '@components/Checkbox';
+import { useState } from 'react';
 import { Container, Content, StyledForm } from './styles';
 import { TEXT } from './constants';
 
 type FormData = {
   email: string;
   password: string;
+  rememberMe: boolean;
 };
 
 export function Login() {
   const methods = useForm<FormData>({
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: '', password: '', rememberMe: false },
   });
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   function goBack() {
     if (state?.from) {
@@ -31,6 +36,10 @@ export function Login() {
       navigate('/welcome');
     }
   }
+
+  const onSubmit = async ({ rememberMe, ...rest }: FormData) => {
+    await login({ ...rest }, rememberMe, setIsSubmitting);
+  };
 
   return (
     <Container className='RX-scroll'>
@@ -58,7 +67,7 @@ export function Login() {
           </Text>
         </div>
         <FormProvider {...methods}>
-          <StyledForm onSubmit={methods.handleSubmit((data) => console.log(data))}>
+          <StyledForm onSubmit={methods.handleSubmit(onSubmit)}>
             <div className='input-container'>
               <FormTextInput
                 type='email'
@@ -91,7 +100,7 @@ export function Login() {
                 Lembrar-me
               </Text>
             </div>
-            <Button type='submit' className='login-button'>
+            <Button type='submit' className='login-button' disabled={isSubmitting}>
               Login
             </Button>
           </StyledForm>

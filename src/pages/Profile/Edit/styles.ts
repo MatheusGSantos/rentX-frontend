@@ -63,7 +63,7 @@ export const Content = styled.div`
     border: none;
     height: 1px;
     width: 60%;
-    margin: 24px 0 32px 0;
+    margin: 16px 0 32px 0;
     background-color: ${({ theme }) => theme.colors.gray300};
     color: ${({ theme }) => theme.colors.gray300};
   }

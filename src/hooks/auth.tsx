@@ -31,7 +31,11 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user: User;
-  signIn(credentials: SignInCredentials, rememberMe: boolean): Promise<void>;
+  login(
+    credentials: SignInCredentials,
+    rememberMe: boolean,
+    setLoading?: (state: boolean) => void,
+  ): Promise<void>;
   signOut(): void;
   updateUser(user: User): void;
 }
@@ -65,8 +69,13 @@ function AuthProvider({ children }: AuthProviderProps) {
     setData({} as AuthState);
   }, []);
 
-  const signIn = useCallback(
-    async ({ email, password }: SignInCredentials, rememberMe: boolean) => {
+  const login = useCallback(
+    async (
+      { email, password }: SignInCredentials,
+      rememberMe: boolean,
+      setLoading?: (state: boolean) => void,
+    ) => {
+      if (setLoading) setLoading(true);
       const id = toast.loading('Submitting...');
       try {
         const response = await apiService.login({
@@ -78,7 +87,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         if (rememberMe) {
           setLocalStorageItem('token', token);
-          setLocalStorageItem('user', user);
+          setLocalStorageItem('user', JSON.stringify(user));
         }
 
         api.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -108,6 +117,8 @@ function AuthProvider({ children }: AuthProviderProps) {
             autoClose: 4000,
             hideProgressBar: false,
           });
+      } finally {
+        if (setLoading) setLoading(false);
       }
     },
     [apiService, navigate],
@@ -128,8 +139,8 @@ function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={useMemo(
-        () => ({ user: data.user, signIn, signOut, updateUser }),
-        [data.user, signIn, signOut, updateUser],
+        () => ({ user: data.user, login, signOut, updateUser }),
+        [data.user, login, signOut, updateUser],
       )}
     >
       {children}

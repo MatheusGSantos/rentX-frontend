@@ -54,4 +54,8 @@ export default createGlobalStyle`
       background: #555;
     }
   }
+
+  .Toastify__toast{ 
+    font-family: Archivo, sans-serif;
+  }
 `;

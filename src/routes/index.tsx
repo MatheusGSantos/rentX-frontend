@@ -50,9 +50,9 @@ export function RoutesIndexer() {
         <Route
           path='profile/edit'
           element={
-            // <RedirectHandler handlerType='security'>
-            <Edit />
-            // </RedirectHandler>
+            <RedirectHandler handlerType='security'>
+              <Edit />
+            </RedirectHandler>
           }
         />
         <Route path='*' element={<NotFound />} />
