@@ -1,24 +1,34 @@
-/* eslint-disable react/function-component-definition */
-// import {
-//     Container
-// } from './styles';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Navbar: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-  <>
-    {children}
-    <nav
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        backgroundColor: 'white',
-        color: 'black',
-        width: '100vw',
-        height: '10vh',
-      }}
-    >
-      <h1>helo</h1>
-    </nav>
-  </>
-);
+import { TABS } from './constants';
 
-export { Navbar };
+import { StyledNavbar } from './styles';
+
+export function Navbar() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  return (
+    <StyledNavbar>
+      {TABS.map(({ label, path, icon: TabIcon }) => (
+        <li key={label}>
+          <div
+            className={pathname === path ? 'active' : ''}
+            onClick={() => {
+              if (pathname !== path) navigate(path);
+            }}
+            role='button'
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                if (pathname !== path) navigate(path);
+              }
+            }}
+          >
+            <TabIcon aria-label={label} />
+          </div>
+        </li>
+      ))}
+    </StyledNavbar>
+  );
+}

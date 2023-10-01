@@ -10,8 +10,7 @@ export const Container = styled.main`
   height: 100vh;
 
   header {
-    margin-bottom: 160px;
-    padding-top: 30px;
+    padding: 30px 16px 160px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -23,8 +22,6 @@ export const Container = styled.main`
 
     svg {
       cursor: pointer;
-      position: absolute;
-      left: 12px;
     }
   }
 `;
@@ -58,20 +55,37 @@ export const Content = styled.div`
     }
   }
 
-  hr {
-    border: none;
-    height: 1px;
-    width: 60%;
-    margin: 16px 0 32px 0;
-    background-color: ${({ theme }) => theme.colors.gray300};
-    color: ${({ theme }) => theme.colors.gray300};
-  }
-
   .info-loading {
     flex: 1;
     display: flex;
     padding-top: 100px;
     justify-content: center;
+    width: 100%;
+  }
+`;
+
+export const ProfileInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  /* background-color: ${({ theme }) => theme.colors.redDisabled}; */
+  margin-top: 64px;
+  gap: 16px;
+
+  hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.gray300};
+    color: ${({ theme }) => theme.colors.gray300};
+  }
+
+  .profile-info__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
   }
 `;

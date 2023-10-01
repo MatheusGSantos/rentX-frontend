@@ -25,6 +25,7 @@ export class ApiService {
       name: data.name || '',
       email: data.email || '',
       driverLicense: data.driverLicense || '',
+      numberOfRentals: data.numberOfRentals || 0,
     };
   }
 }

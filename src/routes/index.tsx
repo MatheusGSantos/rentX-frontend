@@ -8,7 +8,6 @@ import { Login } from '@pages/Login';
 import { Wrapper } from '@pages/Wrapper';
 import { SuccessPage } from '@pages/SuccessPage';
 import { Edit, Info } from '@pages/Profile';
-import { Navbar } from '@components/Navbar';
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
@@ -52,9 +51,7 @@ export function RoutesIndexer() {
           path='profile'
           element={
             <RedirectHandler handlerType='security'>
-              <Navbar>
-                <Info />
-              </Navbar>
+              <Info />
             </RedirectHandler>
           }
         />

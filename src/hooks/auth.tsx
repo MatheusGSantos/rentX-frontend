@@ -12,11 +12,14 @@ import { ApiService } from '@services/ApiService';
 import api from '@services/api';
 import { useRentxToast } from './useToast';
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
   driverLicense: string;
+  isAdmin: boolean;
+  createdAt: string;
+  numberOfRentals: number;
 }
 
 interface AuthState {
