@@ -72,9 +72,68 @@ export const Content = styled.div`
   .react-calendar__tile--active:enabled:focus {
     background-color: ${({ theme }) => theme.colors.redPrimary};
     background: ${({ theme }) => theme.colors.redPrimary};
+    font-weight: ${({ theme }) => theme.fontWeights.medium} !important;
   }
 
   .react-calendar__tile--range:not(.react-calendar__tile--rangeStart):not(.react-calendar__tile--rangeEnd) {
-    background-color: ${({ theme }) => theme.colors.redDisabled};
+    background-color: ${({ theme }) => theme.colors.redHover};
+    color: ${({ theme }) => theme.colors.redPrimary};
+    font-weight: ${({ theme }) => theme.fontWeights.medium} !important;
+  }
+
+  .react-calendar__month-view__weekdays {
+    margin-bottom: 16px;
+  }
+
+  .react-calendar__month-view__weekdays__weekday abbr {
+    color: ${({ theme }) => theme.colors.gray400};
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .react-calendar__navigation button:disabled {
+    background-color: ${({ theme }) => theme.colors.whitePrimary};
+  }
+
+  .react-calendar__navigation__arrow:not(:disabled) {
+    svg g path {
+      fill: ${({ theme }) => theme.colors.gray500};
+    }
+  }
+
+  .react-calendar__navigation button:enabled:focus {
+    background-color: ${({ theme }) => theme.colors.whitePrimary};
+  }
+
+  .react-calendar__tile:disabled {
+    background-color: ${({ theme }) => theme.colors.gray100};
+    color: ${({ theme }) => theme.colors.gray400};
+  }
+
+  .react-calendar__month-view__days__day {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.gray700};
+  }
+
+  .react-calendar__tile--active {
+    color: ${({ theme }) => theme.colors.whitePrimary};
+  }
+
+  .react-calendar__tile--now {
+    background-color: ${({ theme }) => theme.colors.whitePrimary};
+  }
+
+  .react-calendar__tile {
+    padding: 16px;
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: ${({ theme }) => theme.colors.gray400};
   }
 `;

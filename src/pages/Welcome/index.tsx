@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from '@assets/logo.svg';
+import { ReactComponent as Logo } from '@assets/icons/logo.svg';
 
 import { Text } from '@components/Text';
 import { Button } from '@components/Button';

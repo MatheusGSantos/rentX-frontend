@@ -1,5 +1,5 @@
-import { ReactComponent as LogoIcon } from '@assets/logo-dark.svg';
-import { ReactComponent as DoneIcon } from '@assets/done-indicator.svg';
+import { ReactComponent as LogoIcon } from '@assets/icons/logo-dark.svg';
+import { ReactComponent as DoneIcon } from '@assets/icons/done-indicator.svg';
 import { Text } from '@components/Text';
 import { Button } from '@components/Button';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';

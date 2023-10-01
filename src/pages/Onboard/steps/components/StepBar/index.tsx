@@ -1,5 +1,5 @@
 import { MAX_STEPS } from '@pages/Onboard/constants';
-import { ReactComponent as RightArrow } from '@assets/arrow-right.svg';
+import { ReactComponent as RightArrow } from '@assets/icons/arrow-right.svg';
 import { Container, ProgressBarContainer } from './styles';
 
 type StepBarProps = {

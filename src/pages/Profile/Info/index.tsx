@@ -3,9 +3,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Loader } from '@components/Loader';
 import { Text } from '@components/Text';
 
-import { ReactComponent as UserAvatar } from '@assets/user-avatar.svg';
-import { ReactComponent as EditIcon } from '@assets/edit.svg';
-import { ReactComponent as LogoutButton } from '@assets/power-button.svg';
+import { ReactComponent as UserAvatar } from '@assets/icons/user-avatar.svg';
+import { ReactComponent as EditIcon } from '@assets/icons/edit.svg';
+import { ReactComponent as LogoutButton } from '@assets/icons/power-button.svg';
 
 import { ApiService } from '@services/ApiService';
 

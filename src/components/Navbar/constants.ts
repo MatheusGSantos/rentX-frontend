@@ -1,7 +1,7 @@
-import { ReactComponent as HomeIcon } from '@assets/house.svg';
-import { ReactComponent as CarIcon } from '@assets/car.svg';
-import { ReactComponent as CalendarIcon } from '@assets/calendar.svg';
-import { ReactComponent as UserIcon } from '@assets/user.svg';
+import { ReactComponent as HomeIcon } from '@assets/icons/house.svg';
+import { ReactComponent as CarIcon } from '@assets/icons/car.svg';
+import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
+import { ReactComponent as UserIcon } from '@assets/icons/user.svg';
 
 export const TABS = [
   {

@@ -1,19 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Calendar from 'react-calendar';
 
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { useRentRange } from '@hooks/rentRange';
 
-import { ReactComponent as ArrowDown } from '@assets/arrow-down-simple.svg';
-import { ReactComponent as LongArrowRight } from '@assets/long-arrow-right.svg';
+import { ReactComponent as ArrowDown } from '@assets/icons/arrow-down-simple.svg';
+import { ReactComponent as LongArrowRight } from '@assets/icons/long-arrow-right.svg';
+import { ReactComponent as ArrowRight } from '@assets/icons/arrow-right.svg';
+import { ReactComponent as ArrowLeft } from '@assets/icons/arrow-left.svg';
 
 import { Container, Content } from './styles';
 import 'react-calendar/dist/Calendar.css';
 
 function DateRangeSelector() {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const { rentRange, setRentRange } = useRentRange();
+  const { rentRange, setRentRange, saveRentRangeToLocalStore } = useRentRange();
+  const confirmButtonDisabled = !Array.isArray(rentRange);
 
   const minimumDate = useMemo(() => {
     const returnValue = new Date();
@@ -26,10 +29,6 @@ function DateRangeSelector() {
 
     return returnValue;
   }, []);
-
-  useEffect(() => {
-    if (rentRange) console.info('rentRange', rentRange.toString());
-  }, [rentRange]);
 
   const renderDateInfoSection = useCallback(
     () => (
@@ -78,6 +77,11 @@ function DateRangeSelector() {
     [expanded, rentRange],
   );
 
+  function confirmDateRange() {
+    saveRentRangeToLocalStore();
+    setExpanded(false);
+  }
+
   return (
     <Container fullsize={expanded} id='expandable-div'>
       {expanded && (
@@ -101,8 +105,23 @@ function DateRangeSelector() {
             returnValue='range'
             selectRange
             minDate={minimumDate}
+            prev2Label={null}
+            next2Label={null}
+            prevLabel={<ArrowLeft />}
+            nextLabel={<ArrowRight />}
+            navigationLabel={({ date }) =>
+              `${date
+                .toLocaleDateString('pt-BR', {
+                  month: 'long',
+                  year: 'numeric',
+                })
+                .split(' de ')
+                .join(' ')}`
+            }
           />
-          <Button onClick={() => setExpanded(!expanded)}>Confirmar</Button>
+          <Button onClick={confirmDateRange} disabled={confirmButtonDisabled}>
+            Confirmar
+          </Button>
         </Content>
       )}
     </Container>

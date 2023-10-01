@@ -1,8 +1,8 @@
 import { Text } from '@components/Text';
 import { TEXT } from '@pages/Onboard/constants';
 
-import { ReactComponent as CarIcon } from '@assets/car.svg';
-import { ReactComponent as StepIndicatorIcon } from '@assets/02.svg';
+import { ReactComponent as CarIcon } from '@assets/icons/car.svg';
+import { ReactComponent as StepIndicatorIcon } from '@assets/icons/02.svg';
 
 import { Container } from './styles';
 

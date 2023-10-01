@@ -1,9 +1,9 @@
 import { Text } from '@components/Text';
 import { FormTextInput } from '@components/FormTextInput';
 
-import { ReactComponent as EmailIcon } from '@assets/envelope.svg';
-import { ReactComponent as LockIcon } from '@assets/lock.svg';
-import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
+import { ReactComponent as EmailIcon } from '@assets/icons/envelope.svg';
+import { ReactComponent as LockIcon } from '@assets/icons/lock.svg';
+import { ReactComponent as LeftArrow } from '@assets/icons/arrow-left.svg';
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { useAuth } from '@hooks/auth';

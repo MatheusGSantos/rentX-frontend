@@ -24,6 +24,7 @@ const theme = {
   colors: {
     redPrimary: '#DC1637',
     redDisabled: '#EE8A9B',
+    redHover: '#FDEDEF',
 
     greenPrimary: '#03B252',
     greenHover: '#DAF3E5',

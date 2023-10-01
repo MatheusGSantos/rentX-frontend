@@ -10,11 +10,11 @@ import { FormTextInput } from '@components/FormTextInput';
 import { Loader } from '@components/Loader';
 import { Text } from '@components/Text';
 
-import { ReactComponent as UserAvatar } from '@assets/user-avatar.svg';
-import { ReactComponent as UserIcon } from '@assets/user.svg';
-import { ReactComponent as EmailIcon } from '@assets/envelope.svg';
-import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
-import { ReactComponent as CarIcon } from '@assets/car.svg';
+import { ReactComponent as UserAvatar } from '@assets/icons/user-avatar.svg';
+import { ReactComponent as UserIcon } from '@assets/icons/user.svg';
+import { ReactComponent as EmailIcon } from '@assets/icons/envelope.svg';
+import { ReactComponent as LeftArrow } from '@assets/icons/arrow-left.svg';
+import { ReactComponent as CarIcon } from '@assets/icons/car.svg';
 
 import { ERROR_MESSAGES } from '@utils/constants';
 

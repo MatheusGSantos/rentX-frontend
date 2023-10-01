@@ -1,8 +1,8 @@
 import { Text } from '@components/Text';
 import { TEXT } from '@pages/Onboard/constants';
 
-import { ReactComponent as CalendarIcon } from '@assets/calendar.svg';
-import { ReactComponent as StepIndicatorIcon } from '@assets/01.svg';
+import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
+import { ReactComponent as StepIndicatorIcon } from '@assets/icons/01.svg';
 
 import { Container } from './styles';
 

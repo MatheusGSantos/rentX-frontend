@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, ReactNode, useState } from 'react';
+import { createContext, useContext, useMemo, ReactNode, useState, useCallback } from 'react';
 
 type ValuePiece = Date | null;
 
@@ -7,6 +7,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface RentRangeContextData {
   rentRange: Value;
   setRentRange: (range: Value) => void;
+  saveRentRangeToLocalStore: () => void;
 }
 
 interface RentRangeProviderProps {
@@ -16,11 +17,32 @@ interface RentRangeProviderProps {
 const RentRangeContext = createContext<RentRangeContextData>({} as RentRangeContextData);
 
 function RentRangeProvider({ children }: RentRangeProviderProps) {
-  const [rentRange, setRentRange] = useState<Value>(null);
+  const [rentRange, setRentRange] = useState<Value>(() => {
+    const rentRangeFromLocalStorage = localStorage.getItem('rentRange');
+    if (rentRangeFromLocalStorage) {
+      const [start, end] = JSON.parse(rentRangeFromLocalStorage);
+      if (start && end && new Date(start).getDay() > new Date().getDay()) {
+        return [new Date(start), new Date(end)] as Value;
+      }
+    }
+    return null;
+  });
+
+  const saveRentRangeToLocalStore = useCallback(() => {
+    if (Array.isArray(rentRange)) {
+      const [start, end] = rentRange;
+      localStorage.setItem('rentRange', JSON.stringify([start?.toISOString(), end?.toISOString()]));
+    } else {
+      localStorage.setItem('rentRange', JSON.stringify(null));
+    }
+  }, [rentRange]);
 
   return (
     <RentRangeContext.Provider
-      value={useMemo(() => ({ rentRange, setRentRange }), [rentRange, setRentRange])}
+      value={useMemo(
+        () => ({ rentRange, setRentRange, saveRentRangeToLocalStore }),
+        [rentRange, setRentRange, saveRentRangeToLocalStore],
+      )}
     >
       {children}
     </RentRangeContext.Provider>

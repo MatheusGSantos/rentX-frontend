@@ -7,11 +7,11 @@ import { Button } from '@components/Button';
 import { FormTextInput } from '@components/FormTextInput';
 import { Text } from '@components/Text';
 
-import { ReactComponent as EmailIcon } from '@assets/envelope.svg';
-import { ReactComponent as UserIcon } from '@assets/user.svg';
-import { ReactComponent as LockIcon } from '@assets/lock.svg';
-import { ReactComponent as CarIcon } from '@assets/car.svg';
-import { ReactComponent as LeftArrow } from '@assets/arrow-left.svg';
+import { ReactComponent as EmailIcon } from '@assets/icons/envelope.svg';
+import { ReactComponent as UserIcon } from '@assets/icons/user.svg';
+import { ReactComponent as LockIcon } from '@assets/icons/lock.svg';
+import { ReactComponent as CarIcon } from '@assets/icons/car.svg';
+import { ReactComponent as LeftArrow } from '@assets/icons/arrow-left.svg';
 
 import { ERROR_MESSAGES } from '@utils/constants';
 import { ApiService } from '@services/ApiService';
