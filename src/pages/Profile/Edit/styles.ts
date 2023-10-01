@@ -10,8 +10,7 @@ export const Container = styled.main`
   height: 100vh;
 
   header {
-    margin-bottom: 160px;
-    padding-top: 30px;
+    padding: 30px 16px 160px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -19,6 +18,10 @@ export const Container = styled.main`
     h1 {
       flex: 1;
       text-align: center;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     svg {

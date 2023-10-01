@@ -8,12 +8,14 @@ import { Login } from '@pages/Login';
 import { Wrapper } from '@pages/Wrapper';
 import { SuccessPage } from '@pages/SuccessPage';
 import { Edit, Info } from '@pages/Profile';
+import { Home } from '@pages/Home';
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
   return (
     <Routes>
       <Route path='/' element={<Wrapper />}>
+        <Route index element={<Home />} />
         <Route
           path='/onboard'
           element={
