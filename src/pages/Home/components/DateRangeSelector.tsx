@@ -1,25 +1,35 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Button } from '@components/Button';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Calendar from 'react-calendar';
+
+import { Button } from '@components/Button';
+import { Text } from '@components/Text';
+import { useRentRange } from '@hooks/rentRange';
 
 import { ReactComponent as ArrowDown } from '@assets/arrow-down-simple.svg';
 import { ReactComponent as LongArrowRight } from '@assets/long-arrow-right.svg';
 
-import { Text } from '@components/Text';
 import { Container, Content } from './styles';
 import 'react-calendar/dist/Calendar.css';
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 function DateRangeSelector() {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [value, onChange] = useState<Value>(new Date());
+  const { rentRange, setRentRange } = useRentRange();
+
+  const minimumDate = useMemo(() => {
+    const returnValue = new Date();
+    const hours = returnValue.getUTCHours() - 3; // GMT -3
+    if (hours > 17) {
+      returnValue.setDate(returnValue.getDate() + 1);
+    } else {
+      returnValue.setDate(returnValue.getDate());
+    }
+
+    return returnValue;
+  }, []);
 
   useEffect(() => {
-    console.info('value', value);
-  }, [value]);
+    if (rentRange) console.info('rentRange', rentRange.toString());
+  }, [rentRange]);
 
   const renderDateInfoSection = useCallback(
     () => (
@@ -29,21 +39,43 @@ function DateRangeSelector() {
             DE
           </Text>
           <Text as='p' size='medium' weight='medium'>
-            16 Julho 2020
+            {Array.isArray(rentRange)
+              ? rentRange?.[0]
+                  ?.toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                  })
+                  .split(' de ')
+                  .join(' ')
+              : ' - '}
           </Text>
         </div>
-        {expanded ? <LongArrowRight /> : <ArrowDown onClick={() => setExpanded(!expanded)} />}
+        {expanded ? (
+          <LongArrowRight />
+        ) : (
+          <ArrowDown onClick={() => setExpanded(!expanded)} style={{ cursor: 'pointer' }} />
+        )}
         <div className='label-date-pair'>
           <Text as='h2' family='archivo' weight='medium' size='xxsmall' color='gray700'>
             ATÉ
           </Text>
           <Text as='p' size='medium' weight='medium'>
-            20 Julho 2020
+            {Array.isArray(rentRange)
+              ? rentRange?.[1]
+                  ?.toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                  })
+                  .split(' de ')
+                  .join(' ')
+              : ' - '}
           </Text>
         </div>
       </div>
     ),
-    [expanded],
+    [expanded, rentRange],
   );
 
   return (
@@ -63,7 +95,13 @@ function DateRangeSelector() {
       {renderDateInfoSection()}
       {expanded && (
         <Content>
-          <Calendar onChange={onChange} value={value} returnValue='range' selectRange />
+          <Calendar
+            onChange={setRentRange}
+            value={rentRange}
+            returnValue='range'
+            selectRange
+            minDate={minimumDate}
+          />
           <Button onClick={() => setExpanded(!expanded)}>Confirmar</Button>
         </Content>
       )}

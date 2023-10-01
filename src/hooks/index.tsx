@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthProvider } from './auth';
 import { RentxToastProvider } from './useToast';
+import { RentRangeProvider } from './rentRange';
 
 interface AppProviderProps {
   children: React.ReactNode;
@@ -9,7 +10,9 @@ interface AppProviderProps {
 function AppProvider({ children }: AppProviderProps) {
   return (
     <RentxToastProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <RentRangeProvider>{children}</RentRangeProvider>
+      </AuthProvider>
     </RentxToastProvider>
   );
 }
