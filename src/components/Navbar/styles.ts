@@ -4,6 +4,7 @@ export const StyledNavbar = styled.nav`
   width: 100%;
   height: 57px;
   padding: 16px 0;
+  z-index: 2;
 
   background-color: ${({ theme }) => theme.colors.whitePrimary};
   border-top: 1px solid ${({ theme }) => theme.colors.gray300};

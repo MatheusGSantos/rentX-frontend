@@ -14,8 +14,8 @@ import { Container, Content } from './styles';
 import 'react-calendar/dist/Calendar.css';
 
 function DateRangeSelector() {
-  const [expanded, setExpanded] = useState<boolean>(false);
   const { rentRange, setRentRange, saveRentRangeToLocalStore } = useRentRange();
+  const [expanded, setExpanded] = useState<boolean>(() => !Array.isArray(rentRange));
   const confirmButtonDisabled = !Array.isArray(rentRange);
 
   const minimumDate = useMemo(() => {

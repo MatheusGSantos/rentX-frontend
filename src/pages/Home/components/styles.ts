@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div<{ fullsize: boolean }>`
-  transition: max-height 0.5s ease-out;
+  transition: max-height 0.3s ease-out;
   max-height: ${({ fullsize: fullSize }) => (fullSize ? '100vh' : '90px')};
   ${({ fullsize: fullSize }) => (fullSize ? 'height: 100%;' : '')}
   overflow: hidden;
@@ -12,6 +12,7 @@ export const Container = styled.div<{ fullsize: boolean }>`
   padding-top: 24px;
   display: flex;
   flex-direction: column;
+  z-index: 4;
 
   .presentation {
     max-width: 264px;

@@ -8,10 +8,39 @@ export const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 90px;
 `;
 
 export const Content = styled.div`
   background-color: ${({ theme }) => theme.colors.whitePrimary};
-  flex: 1;
+
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 90px - 57px);
+  overflow: hidden;
+
+  header {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+`;
+
+export const Results = styled.div`
+  display: flex;
+  width: 100%;
+  overflow-y: scroll;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 10px 16px 16px;
 `;
