@@ -29,9 +29,11 @@ export function Home() {
     }
   }, [fetchCars, rentRange]);
 
+  console.info('Home', rentRange);
+
   return (
     <Container>
-      <DateRangeSelector />
+      <DateRangeSelector rentRange={rentRange} />
       <Content>
         <header>
           <Text size='xxlarge' weight='semibold' family='archivo' color='gray700'>

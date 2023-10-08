@@ -1,13 +1,14 @@
+import { getLocalStorageItem, setLocalStorageItem } from '@utils/localStorageUtils';
 import { createContext, useContext, useMemo, ReactNode, useState, useCallback } from 'react';
 
 type ValuePiece = Date | null;
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface RentRangeContextData {
   rentRange: Value;
   setRentRange: (range: Value) => void;
-  saveRentRangeToLocalStore: () => void;
+  saveRentRangeToLocalStorage: () => void;
 }
 
 interface RentRangeProviderProps {
@@ -18,30 +19,30 @@ const RentRangeContext = createContext<RentRangeContextData>({} as RentRangeCont
 
 function RentRangeProvider({ children }: RentRangeProviderProps) {
   const [rentRange, setRentRange] = useState<Value>(() => {
-    const rentRangeFromLocalStorage = localStorage.getItem('rentRange');
+    const rentRangeFromLocalStorage = getLocalStorageItem('rentRange');
     if (rentRangeFromLocalStorage) {
       const [start, end] = JSON.parse(rentRangeFromLocalStorage);
-      if (start && end && new Date(start).getDay() > new Date().getDay()) {
+      if (!!start && !!end && new Date(start) > new Date()) {
         return [new Date(start), new Date(end)] as Value;
       }
     }
     return null;
   });
 
-  const saveRentRangeToLocalStore = useCallback(() => {
+  const saveRentRangeToLocalStorage = useCallback(() => {
     if (Array.isArray(rentRange)) {
       const [start, end] = rentRange;
-      localStorage.setItem('rentRange', JSON.stringify([start?.toISOString(), end?.toISOString()]));
+      setLocalStorageItem('rentRange', JSON.stringify([start?.toISOString(), end?.toISOString()]));
     } else {
-      localStorage.setItem('rentRange', JSON.stringify(null));
+      setLocalStorageItem('rentRange', JSON.stringify(null));
     }
   }, [rentRange]);
 
   return (
     <RentRangeContext.Provider
       value={useMemo(
-        () => ({ rentRange, setRentRange, saveRentRangeToLocalStore }),
-        [rentRange, setRentRange, saveRentRangeToLocalStore],
+        () => ({ rentRange, setRentRange, saveRentRangeToLocalStorage }),
+        [rentRange, setRentRange, saveRentRangeToLocalStorage],
       )}
     >
       {children}

@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
-import { useRentRange } from '@hooks/rentRange';
+import { Value, useRentRange } from '@hooks/rentRange';
 
 import { ReactComponent as ArrowDown } from '@assets/icons/arrow-down-simple.svg';
 import { ReactComponent as LongArrowRight } from '@assets/icons/long-arrow-right.svg';
@@ -13,14 +13,19 @@ import { ReactComponent as ArrowLeft } from '@assets/icons/arrow-left.svg';
 import { Container, Content } from './styles';
 import 'react-calendar/dist/Calendar.css';
 
-function DateRangeSelector() {
-  const { rentRange, setRentRange, saveRentRangeToLocalStore } = useRentRange();
+function DateRangeSelector({ rentRange }: { rentRange: Value }) {
+  const { setRentRange, saveRentRangeToLocalStorage } = useRentRange();
   const [expanded, setExpanded] = useState<boolean>(() => !Array.isArray(rentRange));
   const confirmButtonDisabled = !Array.isArray(rentRange);
 
   const minimumDate = useMemo(() => {
     const returnValue = new Date();
-    const hours = returnValue.getUTCHours() - 3; // GMT -3
+    let hours = returnValue.getUTCHours() - 3; // GMT -3
+
+    if (hours < 0) {
+      hours = 24 + hours;
+    }
+
     if (hours > 17) {
       returnValue.setDate(returnValue.getDate() + 1);
     } else {
@@ -78,7 +83,7 @@ function DateRangeSelector() {
   );
 
   function confirmDateRange() {
-    saveRentRangeToLocalStore();
+    saveRentRangeToLocalStorage();
     setExpanded(false);
   }
 

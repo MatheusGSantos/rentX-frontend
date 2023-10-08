@@ -1,4 +1,4 @@
-type AvailableKeys = 'token' | 'user';
+type AvailableKeys = 'token' | 'user' | 'rentRange';
 const KEYWORD = '@RentX';
 
 export const setLocalStorageItem = (key: AvailableKeys, value: string): void => {

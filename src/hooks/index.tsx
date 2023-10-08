@@ -11,11 +11,11 @@ interface AppProviderProps {
 function AppProvider({ children }: AppProviderProps) {
   return (
     <RentxToastProvider>
-      <AuthProvider>
-        <RentRangeProvider>
+      <RentRangeProvider>
+        <AuthProvider>
           <StoreProvider>{children}</StoreProvider>
-        </RentRangeProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </RentRangeProvider>
     </RentxToastProvider>
   );
 }
