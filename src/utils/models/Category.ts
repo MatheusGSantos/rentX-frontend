@@ -5,9 +5,11 @@ import { ReactComponent as Leaf } from 'assets/icons/leaf.svg';
 export type CategoryName = 'gas' | 'electric' | 'alcohol';
 
 export type Category = {
-  id: number;
-  name: CategoryName;
+  id: string;
+  name: string;
   icon: string;
+  description: string;
+  createdAt: string;
 };
 
 export const CATEGORY_ICONS = {

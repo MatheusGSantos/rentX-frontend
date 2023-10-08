@@ -10,7 +10,7 @@ export const TABS = [
     icon: HomeIcon,
   },
   {
-    path: '/cars',
+    path: '/list',
     label: 'available cars page',
     icon: CarIcon,
   },

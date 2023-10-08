@@ -2,11 +2,33 @@ import { Navbar } from '@components/Navbar';
 import { Text } from '@components/Text';
 import { ReactComponent as FilterIcon } from '@assets/icons/parameters.svg';
 import { Card } from '@components/Card';
+import { useRentRange } from '@hooks/rentRange';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ApiService } from '@services/ApiService';
+import { useStore } from '@hooks/store';
 import DateRangeSelector from './components/DateRangeSelector';
 
 import { Container, Content, Results } from './styles';
 
 export function Home() {
+  const { rentRange } = useRentRange();
+  const [loading, setLoading] = useState<boolean>(false);
+  const api = useMemo(() => new ApiService(), []);
+  const { cars, setCars } = useStore();
+
+  const fetchCars = useCallback(async () => {
+    setLoading(true);
+    const availableCarsList = await api.getCars();
+    setCars(availableCarsList);
+    setLoading(false);
+  }, [api, setCars]);
+
+  useEffect(() => {
+    if (rentRange) {
+      fetchCars();
+    }
+  }, [fetchCars, rentRange]);
+
   return (
     <Container>
       <DateRangeSelector />
@@ -25,54 +47,9 @@ export function Home() {
         </header>
 
         <Results className='RX-scroll'>
-          <Card
-            id='lambo'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
-          <Card
-            id='lambo2'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
-          <Card
-            id='lambo3'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
-          <Card
-            id='lambo4'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
-          <Card
-            id='lambo5'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
-          <Card
-            id='lambo6'
-            brand='Lamborghini'
-            name='Huracan'
-            dailyRate={580}
-            category='gas'
-            carImage='Lambo.png'
-          />
+          {cars.map((car) => (
+            <Card key={car.id} car={car} />
+          ))}
         </Results>
       </Content>
       <Navbar />

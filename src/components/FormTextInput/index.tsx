@@ -15,7 +15,9 @@ export function FormTextInput({
   rightIcon: RightIcon,
   onRightIconClick,
   wrapperClassName,
+  inputRootClassName,
   name,
+  onLabelClick,
   ...rest
 }: FormTextInputProps) {
   const {
@@ -25,8 +27,8 @@ export function FormTextInput({
 
   return (
     <StyledFormTextInputContainer className={wrapperClassName}>
-      <StyledFormTextInputRoot>
-        <StyledFormTextInputLabelIcon hasError={!!errors[name]}>
+      <StyledFormTextInputRoot className={inputRootClassName}>
+        <StyledFormTextInputLabelIcon hasError={!!errors[name]} onClick={onLabelClick}>
           <LabelIcon />
         </StyledFormTextInputLabelIcon>
 
