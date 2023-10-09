@@ -1,6 +1,7 @@
 import { CATEGORY_ICONS } from '@utils/models/Category';
 import { Text } from '@components/Text';
 import { Car } from '@utils/models/Car';
+import { memo } from 'react';
 import { Container, Description } from './styles';
 
 type CardProps = {
@@ -8,7 +9,7 @@ type CardProps = {
   onClick?: () => void;
 };
 
-export function Card({ car, onClick = () => {} }: CardProps) {
+function Card({ car, onClick = () => {} }: CardProps) {
   const CategoryIcon = CATEGORY_ICONS[car.category.name];
 
   return (
@@ -42,3 +43,7 @@ export function Card({ car, onClick = () => {} }: CardProps) {
 Card.defaultProps = {
   onClick: () => {},
 };
+
+const MemoizedCard = memo(Card, (prevProps, nextProps) => prevProps.car?.id === nextProps.car?.id);
+
+export { MemoizedCard as Card };

@@ -1,4 +1,8 @@
-import { getLocalStorageItem, setLocalStorageItem } from '@utils/localStorageUtils';
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from '@utils/localStorageUtils';
 import { createContext, useContext, useMemo, ReactNode, useState, useCallback } from 'react';
 
 type ValuePiece = Date | null;
@@ -25,6 +29,8 @@ function RentRangeProvider({ children }: RentRangeProviderProps) {
       if (!!start && !!end && new Date(start) > new Date()) {
         return [new Date(start), new Date(end)] as Value;
       }
+
+      removeLocalStorageItem('rentRange');
     }
     return null;
   });
