@@ -8,24 +8,30 @@ import { ApiService } from '@services/ApiService';
 import { useStore } from '@hooks/store';
 import { Loader } from '@components/Loader';
 
+import { useSearchParams } from 'react-router-dom';
+import { IGetCarsDTO } from '@services/dtos/IGetCarsDTO';
 import DateRangeSelector from './components/DateRangeSelector';
 
 import { Container, Content, Results } from './styles';
 import { FilterModal } from './components/FilterModal';
 
 export function Home() {
+  const api = useMemo(() => new ApiService(), []);
   const { rentRange } = useRentRange();
+  const { cars, setCars } = useStore();
+  const [searchParams] = useSearchParams();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const api = useMemo(() => new ApiService(), []);
-  const { cars, setCars } = useStore();
 
   const fetchCars = useCallback(async () => {
     setLoading(true);
-    const availableCarsList = await api.getCars();
+    const availableCarsList = await api.getCars({
+      ...(Object.fromEntries(searchParams.entries()) as IGetCarsDTO),
+    });
     setCars(availableCarsList);
     setLoading(false);
-  }, [api, setCars]);
+  }, [api, searchParams, setCars]);
 
   useEffect(() => {
     if (rentRange) {
@@ -80,7 +86,7 @@ export function Home() {
 
           <div>
             <Text size='small' weight='regular' family='archivo' color='gray400'>
-              {loading ? '' : `${cars?.length ?? 0} carros`}
+              {loading ? '' : `${cars?.length ?? 0} carro(s)`}
             </Text>
             <FilterIcon onClick={() => setModalIsOpen(true)} className='clickable' />
           </div>

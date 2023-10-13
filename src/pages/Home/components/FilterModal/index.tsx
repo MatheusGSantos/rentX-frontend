@@ -92,7 +92,6 @@ export function FilterModal({ open, onClose }: ModalProps) {
 
       setLoading(false);
     } catch (error) {
-      console.error(error);
       createBasicToast('error', 'Não foi possível carregar os filtros, tente novamente mais tarde');
     }
   }, [api, brands.length, categories.length, createBasicToast, setBrands, setCategories]);
