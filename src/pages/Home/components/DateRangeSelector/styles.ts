@@ -76,7 +76,9 @@ export const Content = styled.div`
     font-weight: ${({ theme }) => theme.fontWeights.medium} !important;
   }
 
-  .react-calendar__tile--range:not(.react-calendar__tile--rangeStart):not(.react-calendar__tile--rangeEnd) {
+  .react-calendar__tile--range:not(.react-calendar__tile--rangeStart):not(
+      .react-calendar__tile--rangeEnd
+    ) {
     background-color: ${({ theme }) => theme.colors.redHover};
     color: ${({ theme }) => theme.colors.redPrimary};
     font-weight: ${({ theme }) => theme.fontWeights.medium} !important;

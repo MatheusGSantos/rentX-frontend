@@ -6,13 +6,17 @@ export type CategoryName = 'gas' | 'electric' | 'alcohol';
 
 export type Category = {
   id: string;
-  name: string;
+  name: CategoryName;
   icon: string;
   description: string;
+  displayName: string;
   createdAt: string;
 };
 
-export const CATEGORY_ICONS = {
+export const CATEGORY_ICONS: Record<
+  CategoryName,
+  React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+> = {
   alcohol: Leaf,
   electric: Thunder,
   gas: TearDrop,

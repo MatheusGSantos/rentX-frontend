@@ -27,6 +27,10 @@ export const Content = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    .clickable {
+      cursor: pointer;
+    }
+
     div {
       display: flex;
       align-items: center;

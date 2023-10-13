@@ -82,7 +82,7 @@ export function Home() {
             <Text size='small' weight='regular' family='archivo' color='gray400'>
               {loading ? '' : `${cars?.length ?? 0} carros`}
             </Text>
-            <FilterIcon onClick={() => setModalIsOpen(true)} />
+            <FilterIcon onClick={() => setModalIsOpen(true)} className='clickable' />
           </div>
         </header>
 
