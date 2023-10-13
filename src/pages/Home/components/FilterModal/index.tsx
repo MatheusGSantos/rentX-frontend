@@ -65,9 +65,32 @@ export function FilterModal({ open, onClose }: ModalProps) {
   const { categories, setCategories, brands, setBrands } = useStore();
   const { createBasicToast } = useRentxToast();
 
-  const [priceRangeValues, setPriceRangeValues] = useState([MIN_RANGE_VALUE, MAX_RANGE_VALUE]);
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
-  const [brand, setBrand] = useState<Option | null>(null);
+  const [priceRangeValues, setPriceRangeValues] = useState(() => {
+    const searchParamsPriceRange = searchParams.get('priceRange');
+    if (searchParamsPriceRange) {
+      const [min, max] = searchParamsPriceRange.split(',');
+      return [+min, +max]; // shorthand for Number(min) and Number(max)
+    }
+    return [MIN_RANGE_VALUE, MAX_RANGE_VALUE];
+  });
+
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>(() => {
+    const searchParamsCategories = searchParams.get('categories');
+    if (searchParamsCategories) {
+      const searchParamsCategoriesToList = searchParamsCategories.split(',');
+      return searchParamsCategoriesToList.map((category) => ({ value: category, label: category }));
+    }
+    return [];
+  });
+
+  const [brand, setBrand] = useState<Option | null>(() => {
+    const searchParamsBrand = searchParams.get('brand');
+    if (searchParamsBrand) {
+      return { value: searchParamsBrand, label: searchParamsBrand };
+    }
+    return null;
+  });
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const clearAllFilters = () => {
