@@ -13,6 +13,9 @@ import { Navbar } from '@components/Navbar';
 import { FormTextInput } from '@components/FormTextInput';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Car } from '@utils/models/Car';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useStore } from '@hooks/store';
+import { Card } from '@components/Card';
 import { Container, Content, SearchResultsContainer } from './styles';
 
 function SearchLoading() {
@@ -23,28 +26,24 @@ function SearchLoading() {
   );
 }
 
-function SearchResults() {
+function SearchResults({ cars }: { cars: Car[] }) {
+  const navigate = useNavigate();
+
   return (
     <SearchResultsContainer className='RX-scroll'>
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
-      <div className='search-element' />
+      {cars.map((car) => (
+        <Card key={car.id} car={car} onClick={() => navigate(`/cars/${car.id}/details/`)} />
+      ))}
     </SearchResultsContainer>
   );
 }
 
 export function List() {
-  const [dataLoading, setDataLoading] = useState<boolean>(false);
   const api = useMemo(() => new ApiService(), []);
-  const { updateUser, user } = useAuth();
+  const { cars, setCars } = useStore();
   const { createBasicToast } = useRentxToast();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [dataLoading, setDataLoading] = useState<boolean>(false);
 
   const methods = useForm<{ carName: string }>({
     defaultValues: {
@@ -52,20 +51,33 @@ export function List() {
     },
   });
 
-  const getUserData = useCallback(async () => {
+  const setSearchResults = useCallback(
+    ({ carName }: { carName: string }) => {
+      const currentCarName = searchParams.get('carName') ?? '';
+      if (currentCarName !== carName) setSearchParams(carName.length ? { carName } : {});
+    },
+    [searchParams, setSearchParams],
+  );
+
+  const fetchCars = useCallback(async () => {
     try {
-      const userProfile = await api.getUserProfile();
-      updateUser({ ...user, ...userProfile });
+      setDataLoading(true);
 
+      const searchParamsCarName = searchParams.get('carName');
+      const payload = searchParamsCarName ? { name: searchParamsCarName } : {};
+
+      const availableCarsList = await api.getCars(payload);
+      setCars(availableCarsList);
+    } catch (err) {
+      createBasicToast('error', 'Erro ao buscar carros');
+    } finally {
       setDataLoading(false);
-    } catch (error) {
-      createBasicToast('error', 'Algo deu errado. Tente novamente mais tarde.');
     }
-  }, [api, createBasicToast, updateUser, user]);
+  }, [api, createBasicToast, searchParams, setCars]);
 
-  // useEffect(() => {
-  //   if (dataLoading) getUserData();
-  // }, [getUserData, dataLoading]);
+  useEffect(() => {
+    fetchCars();
+  }, [fetchCars]);
 
   return (
     <Container>
@@ -74,23 +86,33 @@ export function List() {
           Listagem
         </Text>
         <Text size='small' weight='regular' family='archivo' color='gray400'>
-          X carros
+          {dataLoading ? '' : `${cars?.length ?? 0} carro(s)`}
         </Text>
       </header>
       <Content>
         <FormProvider {...methods}>
-          <form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <FormTextInput
               name='carName'
               labelIcon={SearchIcon}
               placeholder='Qual carro você procura?'
               wrapperClassName='input-search'
               inputRootClassName='input-root'
+              onLabelClick={methods.handleSubmit(setSearchResults)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  methods.handleSubmit(setSearchResults)();
+                }
+              }}
             />
           </form>
         </FormProvider>
 
-        {dataLoading ? <SearchLoading /> : <SearchResults />}
+        {dataLoading ? <SearchLoading /> : <SearchResults cars={cars} />}
       </Content>
       <Navbar />
     </Container>

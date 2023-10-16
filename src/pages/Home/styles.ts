@@ -46,5 +46,5 @@ export const Results = styled.div`
   overflow-y: scroll;
   flex-direction: column;
   gap: 16px;
-  padding: 0 10px 16px 16px;
+  padding: 8px 10px 16px 16px;
 `;

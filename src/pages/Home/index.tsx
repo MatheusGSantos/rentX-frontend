@@ -8,7 +8,7 @@ import { ApiService } from '@services/ApiService';
 import { useStore } from '@hooks/store';
 import { Loader } from '@components/Loader';
 
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IGetCarsDTO } from '@services/dtos/IGetCarsDTO';
 import DateRangeSelector from './components/DateRangeSelector';
 
@@ -20,6 +20,7 @@ export function Home() {
   const { rentRange } = useRentRange();
   const { cars, setCars } = useStore();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -72,8 +73,10 @@ export function Home() {
       );
     }
 
-    return cars.map((car) => <Card key={car.id} car={car} />);
-  }, [cars, loading]);
+    return cars.map((car) => (
+      <Card key={car.id} car={car} onClick={() => navigate(`/cars/${car.id}/details/`)} />
+    ));
+  }, [cars, loading, navigate]);
 
   return (
     <Container>

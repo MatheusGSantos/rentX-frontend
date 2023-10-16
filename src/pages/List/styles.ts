@@ -19,17 +19,21 @@ export const Container = styled.main`
 `;
 
 export const Content = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.whitePrimary};
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0 10px 16px 16px;
   height: calc(100vh - 112px - 57px);
 
   form {
     width: 100%;
+    padding: 0 16px;
+
+    p.helperText {
+      display: none;
+    }
   }
 
   .input-search {
@@ -55,9 +59,12 @@ export const Content = styled.div`
 `;
 
 export const SearchResultsContainer = styled.div`
+  display: flex;
   width: 100%;
   overflow-y: scroll;
-  background-color: red;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 10px 16px 16px;
 
   .search-element {
     width: 100%;

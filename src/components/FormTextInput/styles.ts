@@ -28,6 +28,15 @@ export const StyledFormTextInputLabelIcon = styled.div<{ hasError: boolean }>`
   path {
     fill: ${({ theme, hasError }) => (hasError ? theme.colors.gray300 : theme.colors.gray500)};
   }
+
+  ${({ theme, onClick }) =>
+    onClick &&
+    `
+    cursor: pointer;
+    &:hover {
+      background-color: ${theme.colors.gray300};
+    }
+  `}
 `;
 
 export const StyledFormTextInputInputWrapper = styled.div<{ hasError: boolean }>`
@@ -61,7 +70,7 @@ export const StyledFormTextInputInput = styled.input<InputHTMLAttributes<HTMLInp
   }
 `;
 
-export const StyledFormTextInputRightIcon = styled.div`
+export const StyledFormTextInputRightIcon = styled.div<{ isButton?: () => void }>`
   display: flex;
   align-items: center;
   justify-content: center;

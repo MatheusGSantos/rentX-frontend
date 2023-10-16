@@ -67,6 +67,10 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.gray700};
   }
 
+  .react-calendar__tile--now {
+    background-color: ${({ theme }) => theme.colors.whitePrimary};
+  }
+
   .react-calendar__tile--rangeStart,
   .react-calendar__tile--rangeEnd,
   .react-calendar__tile--active:enabled:hover,
@@ -126,10 +130,6 @@ export const Content = styled.div`
 
   .react-calendar__tile--active {
     color: ${({ theme }) => theme.colors.whitePrimary};
-  }
-
-  .react-calendar__tile--now {
-    background-color: ${({ theme }) => theme.colors.whitePrimary};
   }
 
   .react-calendar__tile {
