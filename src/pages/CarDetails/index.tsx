@@ -7,13 +7,15 @@ import { Button } from '@components/Button';
 import { ReactComponent as LeftArrow } from '@assets/icons/arrow-left.svg';
 
 import { Car } from '@utils/models/Car';
+import { useRentRange } from '@hooks/rentRange';
 
 import { Container, Content } from './styles';
 
 export function CarDetails() {
-  const { state } = useLocation();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { carId } = useParams();
+  const { rentRange } = useRentRange();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [carDetails, setCarDetails] = useState<Car>();
