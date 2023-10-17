@@ -13,6 +13,7 @@ import { User, useAuth } from '@hooks/auth';
 import { useRentxToast } from '@hooks/useToast';
 import { Navbar } from '@components/Navbar';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { Container, Content, ProfileInfo } from './styles';
 
 function ProfileLoading() {
@@ -87,9 +88,14 @@ function Info() {
 
       setDataLoading(false);
     } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 401) {
+        createBasicToast('error', 'Sessão expirada. Faça login novamente.');
+        signOut();
+        return;
+      }
       createBasicToast('error', 'Algo deu errado. Tente novamente mais tarde.');
     }
-  }, [api, createBasicToast, updateUser, user]);
+  }, [api, createBasicToast, signOut, updateUser, user]);
 
   useEffect(() => {
     if (dataLoading) getUserData();
