@@ -30,6 +30,7 @@ export default defineConfig({
       exclude: '',
     }),
   ],
+  base: '',
   build: {
     sourcemap: true,
   },

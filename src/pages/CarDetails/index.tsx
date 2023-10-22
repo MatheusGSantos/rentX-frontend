@@ -10,23 +10,32 @@ import { Car } from '@utils/models/Car';
 import { useRentRange } from '@hooks/rentRange';
 
 import { ApiService } from '@services/ApiService';
-import { Container, Content } from './styles';
+import { Container, Content, Footer } from './styles';
 
 export function CarDetails() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { carId } = useParams();
-  const { rentRange } = useRentRange();
+  const { rentRange, getDifferenceInDays } = useRentRange();
   const api = useMemo(() => new ApiService(), []);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [carDetails, setCarDetails] = useState<Car>();
 
+  const rentRangeDifference = useMemo(() => getDifferenceInDays(), [getDifferenceInDays]);
+  const dailyRentInfo = useMemo(() => {
+    if (carDetails && rentRangeDifference) {
+      const stringTail = rentRangeDifference > 1 ? 's' : '';
+      return `R$ ${carDetails.dailyRate} x ${rentRangeDifference} diária${stringTail}`;
+    }
+    return '-';
+  }, [carDetails, rentRangeDifference]);
+
   const fetchCarDetails = useCallback(async () => {
     if (!carDetails && carId) {
       try {
         setLoading(true);
-        const carInfo = await api.getCarInfo(carId);
+        const [carInfo] = await api.getCarInfo(carId);
         setCarDetails(carInfo);
       } catch (e) {
         console.error(e);
@@ -43,27 +52,31 @@ export function CarDetails() {
   return (
     <Container>
       <header>
-        <LeftArrow className='back-arrow' onClick={() => navigate(state?.goBackTo ?? '/')} />
+        <LeftArrow onClick={() => navigate(state?.goBackTo ?? '/')} />
       </header>
-      <Content />
-      <footer>
-        <div id='priceInfo'>
-          <div id='label&dailyRent'>
+      <Content>
+        {carDetails?.carImage && <img src={`/images/${carDetails.carImage}`} alt='Car' />}
+      </Content>
+      <Footer>
+        <div id='price-info'>
+          <div id='label-and-daily-rent'>
             <Text family='archivo' weight='medium' size='xxsmall' color='gray400'>
               TOTAL
             </Text>
             <Text weight='medium' size='medium' color='gray700'>
-              {loading ? '-' : 'R$ 580 x3 diárias'}
+              {dailyRentInfo}
             </Text>
           </div>
           <Text id='totalPrice' size='xxlarge' weight='medium' family='archivo' color='gray700'>
-            {loading ? '-' : 'R$ 2,900'}
+            {!carDetails || !rentRangeDifference
+              ? '-'
+              : `R$ ${(carDetails.dailyRate * rentRangeDifference).toLocaleString('pt-BR')}`}
           </Text>
         </div>
         <Button id='confirmButton' onClick={() => {}}>
           Alugar agora
         </Button>
-      </footer>
+      </Footer>
     </Container>
   );
 }

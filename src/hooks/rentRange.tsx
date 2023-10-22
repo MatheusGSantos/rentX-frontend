@@ -13,6 +13,7 @@ interface RentRangeContextData {
   rentRange: Value;
   setRentRange: (range: Value) => void;
   saveRentRangeToLocalStorage: () => void;
+  getDifferenceInDays: () => number;
 }
 
 interface RentRangeProviderProps {
@@ -44,11 +45,30 @@ function RentRangeProvider({ children }: RentRangeProviderProps) {
     }
   }, [rentRange]);
 
+  const getDifferenceInDays = useCallback(() => {
+    if (Array.isArray(rentRange)) {
+      const [start, end] = rentRange;
+      if (start && end) {
+        const formattedStart = new Date(start);
+        const formattedEnd = new Date(end);
+
+        formattedEnd.setHours(0, 0, 0, 0);
+        formattedStart.setHours(0, 0, 0, 0);
+
+        const differenceInTime = Math.abs(formattedEnd.getTime() - formattedStart.getTime());
+        return Math.ceil(differenceInTime / (1000 * 3600 * 24));
+      }
+
+      return 0;
+    }
+    return 0;
+  }, [rentRange]);
+
   return (
     <RentRangeContext.Provider
       value={useMemo(
-        () => ({ rentRange, setRentRange, saveRentRangeToLocalStorage }),
-        [rentRange, setRentRange, saveRentRangeToLocalStorage],
+        () => ({ rentRange, setRentRange, saveRentRangeToLocalStorage, getDifferenceInDays }),
+        [rentRange, setRentRange, saveRentRangeToLocalStorage, getDifferenceInDays],
       )}
     >
       {children}

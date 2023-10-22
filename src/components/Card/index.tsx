@@ -35,7 +35,7 @@ function Card({ car, onClick = () => {} }: CardProps) {
           {CategoryIcon && <CategoryIcon />}
         </div>
       </Description>
-      <img src={`src/assets/images/${car.carImage}`} alt='Car' />
+      <img src={`/images/${car.carImage}`} alt='Car' />
     </Container>
   );
 }
