@@ -26,6 +26,10 @@ const theme = {
     redDisabled: '#EE8A9B',
     redHover: '#FDEDEF',
 
+    lightBlue: '#e5f2ff',
+
+    lightYellow: '#fcfec9',
+
     greenPrimary: '#03B252',
     greenHover: '#DAF3E5',
 

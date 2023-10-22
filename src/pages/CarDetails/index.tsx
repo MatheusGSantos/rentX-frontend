@@ -10,6 +10,7 @@ import { Car } from '@utils/models/Car';
 import { useRentRange } from '@hooks/rentRange';
 
 import { ApiService } from '@services/ApiService';
+import { Callout } from '@components/Callout';
 import { Container, Content, Footer } from './styles';
 
 export function CarDetails() {
@@ -56,6 +57,9 @@ export function CarDetails() {
       </header>
       <Content>
         {carDetails?.carImage && <img src={`/images/${carDetails.carImage}`} alt='Car' />}
+        {!rentRangeDifference && (
+          <Callout variant='error' message='Escolha o período de aluguél antes de continuar' />
+        )}
       </Content>
       <Footer>
         <div id='price-info'>
