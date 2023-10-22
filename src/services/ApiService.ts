@@ -75,4 +75,9 @@ export class ApiService {
   public async endRental(rentalId: string) {
     await this.api.post(`/rentals/${rentalId}/end`);
   }
+
+  public async getCarInfo(carId: string) {
+    const { data } = await this.api.get(`/cars/available?id=${carId}`);
+    return data;
+  }
 }

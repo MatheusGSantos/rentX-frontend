@@ -11,6 +11,7 @@ import { Edit, Info } from '@pages/Profile';
 import { Home } from '@pages/Home';
 import { List } from '@pages/List';
 
+import { CarDetails } from '@pages/CarDetails';
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
@@ -68,6 +69,7 @@ export function RoutesIndexer() {
             </RedirectHandler>
           }
         />
+        <Route path='cars/:carId/details/' element={<CarDetails />} />
         <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
