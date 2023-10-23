@@ -27,12 +27,22 @@ function RentRangeProvider({ children }: RentRangeProviderProps) {
     const rentRangeFromLocalStorage = getLocalStorageItem('rentRange');
     if (rentRangeFromLocalStorage) {
       const [start, end] = JSON.parse(rentRangeFromLocalStorage);
-      if (!!start && !!end && new Date(start) > new Date()) {
-        return [new Date(start), new Date(end)] as Value;
+
+      if (!!start && !!end) {
+        const startDate = new Date(start);
+        const todayDate = new Date();
+
+        startDate.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+
+        if (startDate >= todayDate) {
+          return [new Date(start), new Date(end)] as Value;
+        }
       }
 
       removeLocalStorageItem('rentRange');
     }
+
     return null;
   });
 

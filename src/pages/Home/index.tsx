@@ -74,7 +74,11 @@ export function Home() {
     }
 
     return cars.map((car) => (
-      <Card key={car.id} car={car} onClick={() => navigate(`/cars/${car.id}/details/`)} />
+      <Card
+        key={car.id}
+        car={car}
+        onClick={() => navigate(`/cars/${car.id}/details/`, { state: { fromNavigation: true } })}
+      />
     ));
   }, [cars, loading, navigate]);
 

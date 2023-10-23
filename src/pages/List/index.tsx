@@ -32,7 +32,11 @@ function SearchResults({ cars }: { cars: Car[] }) {
   return (
     <SearchResultsContainer className='RX-scroll'>
       {cars.map((car) => (
-        <Card key={car.id} car={car} onClick={() => navigate(`/cars/${car.id}/details/`)} />
+        <Card
+          key={car.id}
+          car={car}
+          onClick={() => navigate(`/cars/${car.id}/details/`, { state: { fromNavigation: true } })}
+        />
       ))}
     </SearchResultsContainer>
   );
