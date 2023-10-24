@@ -1,3 +1,4 @@
+import { transparentize } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.main`
@@ -36,7 +37,7 @@ export const Content = styled.div`
   }
 `;
 
-export const SearchResultsContainer = styled.div`
+export const RentalsListContainer = styled.div`
   display: flex;
   width: 100%;
   overflow-y: scroll;
@@ -44,19 +45,36 @@ export const SearchResultsContainer = styled.div`
   gap: 16px;
   padding: 16px 10px 16px 16px;
 
-  .search-element {
-    width: 100%;
-    height: 70px;
-    background-color: black;
-
-    & + .search-element {
-      margin-top: 16px;
-    }
+  #card-and-status-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
+`;
 
-  .rec {
-    width: 100%;
-    height: 56px;
-    background-color: black;
-  }
+export const RentStatusContainer = styled.div<{ status: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+
+  ${({ theme, status }) => {
+    if (status === 'inProgress')
+      return `
+        background-color: ${theme.colors.greenHover};
+        box-shadow: 2px 2px 4px ${transparentize(0.8, theme.colors.greenPrimary)};
+        justify-content: center;
+      `;
+
+    if (status === 'delayed')
+      return `
+        background-color: ${theme.colors.redHover};
+        box-shadow: 2px 2px 4px ${transparentize(0.8, theme.colors.redPrimary)};
+        justify-content: center;
+      `;
+    return `
+      background-color: ${theme.colors.gray100};
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    `;
+  }};
 `;

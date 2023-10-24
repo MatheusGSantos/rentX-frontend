@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Loader } from '@components/Loader';
 import { Text } from '@components/Text';
@@ -12,7 +12,7 @@ import { Card } from '@components/Card';
 import { AxiosError } from 'axios';
 import { useAuth } from '@hooks/auth';
 import { Rental } from '@utils/models/Rental';
-import { Container, Content, SearchResultsContainer } from './styles';
+import { Container, Content, RentStatusContainer, RentalsListContainer } from './styles';
 
 function SearchLoading() {
   return (
@@ -22,14 +22,63 @@ function SearchLoading() {
   );
 }
 
+function RentStatus({ rental }: { rental: Rental }) {
+  const status = useMemo(() => {
+    const { endDate, expectedReturnDate } = rental;
+    const today = new Date();
+    const expectedReturnDateObj = new Date(expectedReturnDate);
+    const differenceInDays =
+      (today.getTime() - expectedReturnDateObj.getTime()) / (1000 * 60 * 60 * 24);
+
+    if (endDate) return 'finished';
+    if (differenceInDays > 0) return 'delayed';
+    return 'inProgress';
+  }, [rental]);
+
+  return (
+    <RentStatusContainer status={status}>
+      {status === 'inProgress' || status === 'delayed' ? (
+        <Text
+          as='h3'
+          color={status === 'inProgress' ? 'greenPrimary' : 'redPrimary'}
+          family='archivo'
+          weight='medium'
+          size='medium'
+        >
+          {status === 'inProgress'
+            ? `Utilizando até ${new Date(rental.expectedReturnDate)
+                .toLocaleDateString('pt-BR', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })
+                .split(' de ')
+                .join(' ')}`
+            : 'Atrasado'}
+        </Text>
+      ) : (
+        <div />
+      )}
+    </RentStatusContainer>
+  );
+}
+
 function RentalsList({ rentals }: { rentals: Rental[] }) {
+  const MemoizedRentStatus = memo(
+    RentStatus,
+    (prevProps, nextProps) => prevProps.rental.id === nextProps.rental.id,
+  );
+
   if (rentals.length) {
     return (
-      <SearchResultsContainer className='RX-scroll'>
-        {rentals.map(({ car }) => (
-          <Card key={car.id} car={car} />
+      <RentalsListContainer className='RX-scroll'>
+        {rentals.map((rental) => (
+          <div id='card-and-status-container' key={rental.car.id}>
+            <Card key={rental.car.id} car={rental.car} />
+            <MemoizedRentStatus rental={rental} />
+          </div>
         ))}
-      </SearchResultsContainer>
+      </RentalsListContainer>
     );
   }
 
