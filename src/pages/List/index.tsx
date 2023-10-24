@@ -7,7 +7,6 @@ import { ReactComponent as SearchIcon } from '@assets/icons/search.svg';
 
 import { ApiService } from '@services/ApiService';
 
-import { useAuth } from '@hooks/auth';
 import { useRentxToast } from '@hooks/useToast';
 import { Navbar } from '@components/Navbar';
 import { FormTextInput } from '@components/FormTextInput';

@@ -10,8 +10,9 @@ import { SuccessPage } from '@pages/SuccessPage';
 import { Edit, Info } from '@pages/Profile';
 import { Home } from '@pages/Home';
 import { List } from '@pages/List';
-
 import { CarDetails } from '@pages/CarDetails';
+import { UserRentals } from '@pages/UserRentals';
+
 import RedirectHandler from './RedirectHandler';
 
 export function RoutesIndexer() {
@@ -66,6 +67,14 @@ export function RoutesIndexer() {
           element={
             <RedirectHandler handlerType='security'>
               <Edit />
+            </RedirectHandler>
+          }
+        />{' '}
+        <Route
+          path='/rentals'
+          element={
+            <RedirectHandler handlerType='security'>
+              <UserRentals />
             </RedirectHandler>
           }
         />
