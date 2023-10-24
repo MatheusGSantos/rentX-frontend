@@ -7,11 +7,13 @@ import { ApiService } from '@services/ApiService';
 
 import { useRentxToast } from '@hooks/useToast';
 import { Navbar } from '@components/Navbar';
-import { useNavigate } from 'react-router-dom';
 import { Card } from '@components/Card';
 import { AxiosError } from 'axios';
 import { useAuth } from '@hooks/auth';
 import { Rental } from '@utils/models/Rental';
+
+import { ReactComponent as SmallArrowRight } from '@assets/icons/small-arrow-right.svg';
+
 import { Container, Content, RentStatusContainer, RentalsListContainer } from './styles';
 
 function SearchLoading() {
@@ -23,17 +25,17 @@ function SearchLoading() {
 }
 
 function RentStatus({ rental }: { rental: Rental }) {
-  const status = useMemo(() => {
-    const { endDate, expectedReturnDate } = rental;
-    const today = new Date();
-    const expectedReturnDateObj = new Date(expectedReturnDate);
-    const differenceInDays =
-      (today.getTime() - expectedReturnDateObj.getTime()) / (1000 * 60 * 60 * 24);
+  const { endDate, expectedReturnDate } = rental;
+  const today = new Date();
+  const expectedReturnDateObj = new Date(expectedReturnDate);
+  const differenceInDays =
+    (today.getTime() - expectedReturnDateObj.getTime()) / (1000 * 60 * 60 * 24);
 
+  const status = useMemo(() => {
     if (endDate) return 'finished';
     if (differenceInDays > 0) return 'delayed';
     return 'inProgress';
-  }, [rental]);
+  }, [differenceInDays, endDate]);
 
   return (
     <RentStatusContainer status={status}>
@@ -54,10 +56,52 @@ function RentStatus({ rental }: { rental: Rental }) {
                 })
                 .split(' de ')
                 .join(' ')}`
-            : 'Atrasado'}
+            : `Atrasado em ${Math.ceil(differenceInDays)} diária(s)`}
         </Text>
       ) : (
-        <div />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            gap: '32px',
+          }}
+        >
+          <Text as='h4' color='gray400' family='archivo' weight='medium' size='xxsmall'>
+            PERÍODO
+          </Text>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+            }}
+          >
+            <Text as='h3' color='gray700' weight='regular' size='small'>
+              {new Date(rental.startDate)
+                .toLocaleDateString('pt-BR', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })
+                .split(' de ')
+                .join(' ')}
+            </Text>
+            <SmallArrowRight />
+            <Text as='h3' color='gray700' weight='regular' size='small'>
+              {new Date(rental.expectedReturnDate)
+                .toLocaleDateString('pt-BR', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                })
+                .split(' de ')
+                .join(' ')}
+            </Text>
+          </div>
+        </div>
       )}
     </RentStatusContainer>
   );
@@ -91,7 +135,6 @@ export function UserRentals() {
   const { signOut } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const [rentals, setRentals] = useState([]);
-  const navigate = useNavigate();
 
   const fetchUserRentals = useCallback(async () => {
     try {

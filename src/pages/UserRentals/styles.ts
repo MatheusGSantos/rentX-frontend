@@ -58,6 +58,10 @@ export const RentStatusContainer = styled.div<{ status: string }>`
   justify-content: space-between;
   padding: 12px 24px;
 
+  h4 {
+    letter-spacing: 0.4px;
+  }
+
   ${({ theme, status }) => {
     if (status === 'inProgress')
       return `
