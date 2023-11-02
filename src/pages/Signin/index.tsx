@@ -125,7 +125,7 @@ export function Signin() {
           </Text>
         </div>
         <FormProvider {...methods}>
-          <StyledForm onSubmit={methods.handleSubmit(onSubmit)}>
+          <StyledForm onSubmit={methods.handleSubmit(onSubmit)} noValidate>
             <div className='input-container'>
               <FormTextInput
                 id='name'

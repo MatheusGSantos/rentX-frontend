@@ -59,7 +59,7 @@ export function Login() {
           </Text>
         </div>
         <FormProvider {...methods}>
-          <StyledForm onSubmit={methods.handleSubmit(onSubmit)}>
+          <StyledForm onSubmit={methods.handleSubmit(onSubmit)} noValidate>
             <div className='input-container'>
               <FormTextInput
                 type='email'
