@@ -12,7 +12,6 @@ import { Text } from '@components/Text';
 
 import { ReactComponent as UserAvatar } from '@assets/icons/user-avatar.svg';
 import { ReactComponent as UserIcon } from '@assets/icons/user.svg';
-import { ReactComponent as EmailIcon } from '@assets/icons/envelope.svg';
 import { ReactComponent as LeftArrow } from '@assets/icons/arrow-left.svg';
 import { ReactComponent as CarIcon } from '@assets/icons/car.svg';
 
@@ -26,10 +25,6 @@ import { Container, Content } from './styles';
 
 const editProfileFormSchema = z.object({
   name: z.string().min(1, ERROR_MESSAGES.FORM_VALIDATION.REQUIRED),
-  email: z
-    .string()
-    .min(1, ERROR_MESSAGES.FORM_VALIDATION.REQUIRED)
-    .email(ERROR_MESSAGES.FORM_VALIDATION.INVALID_EMAIL),
   driverLicense: z
     .string()
     .min(1, ERROR_MESSAGES.FORM_VALIDATION.REQUIRED)
@@ -55,7 +50,6 @@ function Edit() {
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
       name: '',
-      email: '',
       driverLicense: '',
     },
     mode: 'onSubmit',
@@ -132,15 +126,6 @@ function Edit() {
                 name='name'
                 labelIcon={UserIcon}
                 placeholder='Nome'
-                autoComplete='new-password'
-              />
-
-              <FormTextInput
-                type='email'
-                id='email'
-                name='email'
-                labelIcon={EmailIcon}
-                placeholder='E-mail'
                 autoComplete='new-password'
               />
 
